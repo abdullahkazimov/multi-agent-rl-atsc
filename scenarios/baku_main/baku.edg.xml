@@ -1,0 +1,29 @@
+<edges>
+    <edge id="W_to_1" from="W_origin" to="Int1" numLanes="3" speed="13.89"/>
+    <edge id="1_to_2" from="Int1" to="Int2" numLanes="3" speed="13.89"/>
+    <edge id="2_to_3" from="Int2" to="Int3" numLanes="3" speed="13.89"/>
+    <edge id="3_to_4" from="Int3" to="Int4" numLanes="3" speed="13.89"/>
+    <edge id="4_to_E" from="Int4" to="E_sink" numLanes="3" speed="13.89"/>
+    <edge id="Bypass_W_to_N1" from="W_origin" to="N1" numLanes="1" speed="16.67"/>
+    <edge id="Bypass_W_to_N2" from="W_origin" to="N2" numLanes="1" speed="16.67"/>
+    <edge id="Bypass_N3_to_N2" from="N3" to="N2" numLanes="1" speed="13.89"/>
+    <edge id="Bypass_S2_to_S1" from="S2" to="S1" numLanes="1" speed="13.89"/>
+    <edge id="Bypass_S2_to_S3" from="S2" to="S3" numLanes="1" speed="13.89"/>
+    <edge id="Bypass_S2_to_S4" from="S2" to="S4" numLanes="1" speed="13.89"/>
+        <edge id="N1_to_Int1" from="N1" to="Int1" numLanes="2" speed="13.89"/>
+    <edge id="Int1_to_N1" from="Int1" to="N1" numLanes="2" speed="13.89"/>
+    <edge id="S1_to_Int1" from="S1" to="Int1" numLanes="2" speed="13.89"/>
+    <edge id="Int1_to_S1" from="Int1" to="S1" numLanes="2" speed="13.89"/>
+    <edge id="N2_to_Int2" from="N2" to="Int2" numLanes="2" speed="13.89"/>
+    <edge id="Int2_to_N2" from="Int2" to="N2" numLanes="2" speed="13.89"/>
+    <edge id="S2_to_Int2" from="S2" to="Int2" numLanes="2" speed="13.89"/>
+    <edge id="Int2_to_S2" from="Int2" to="S2" numLanes="2" speed="13.89"/>
+    <edge id="N3_to_Int3" from="N3" to="Int3" numLanes="2" speed="13.89"/>
+    <edge id="Int3_to_N3" from="Int3" to="N3" numLanes="2" speed="13.89"/>
+    <edge id="S3_to_Int3" from="S3" to="Int3" numLanes="2" speed="13.89"/>
+    <edge id="Int3_to_S3" from="Int3" to="S3" numLanes="2" speed="13.89"/>
+    <edge id="N4_to_Int4" from="N4" to="Int4" numLanes="2" speed="13.89"/>
+    <edge id="Int4_to_N4" from="Int4" to="N4" numLanes="2" speed="13.89"/>
+    <edge id="S4_to_Int4" from="S4" to="Int4" numLanes="2" speed="13.89"/>
+    <edge id="Int4_to_S4" from="Int4" to="S4" numLanes="2" speed="13.89"/>
+</edges>

@@ -1,0 +1,50 @@
+<edges>
+    <edge id="C_to_L1" from="CIRCLE" to="L1" numLanes="3" speed="13.89"/>
+    <edge id="L1_to_C" from="L1" to="CIRCLE" numLanes="3" speed="13.89"/>
+    <edge id="L1_to_Int1" from="L1" to="Int1" numLanes="3" speed="13.89"/>
+    <edge id="Int1_to_L1" from="Int1" to="L1" numLanes="3" speed="13.89"/>
+    <edge id="Ext1_to_Int1" from="Ext1" to="Int1" numLanes="2" speed="13.89"/>
+    <edge id="Int1_to_Ext1" from="Int1" to="Ext1" numLanes="2" speed="13.89"/>
+    <edge id="Ext1_to_Sink1" from="Ext1" to="Sink1" numLanes="2" speed="13.89"/>
+    <edge id="C_to_L2" from="CIRCLE" to="L2" numLanes="3" speed="13.89"/>
+    <edge id="L2_to_C" from="L2" to="CIRCLE" numLanes="3" speed="13.89"/>
+    <edge id="L2_to_Int2" from="L2" to="Int2" numLanes="3" speed="13.89"/>
+    <edge id="Int2_to_L2" from="Int2" to="L2" numLanes="3" speed="13.89"/>
+    <edge id="Ext2_to_Int2" from="Ext2" to="Int2" numLanes="2" speed="13.89"/>
+    <edge id="Int2_to_Ext2" from="Int2" to="Ext2" numLanes="2" speed="13.89"/>
+    <edge id="Ext2_to_Sink2" from="Ext2" to="Sink2" numLanes="2" speed="13.89"/>
+    <edge id="C_to_L3" from="CIRCLE" to="L3" numLanes="3" speed="13.89"/>
+    <edge id="L3_to_C" from="L3" to="CIRCLE" numLanes="3" speed="13.89"/>
+    <edge id="L3_to_Int3" from="L3" to="Int3" numLanes="3" speed="13.89"/>
+    <edge id="Int3_to_L3" from="Int3" to="L3" numLanes="3" speed="13.89"/>
+    <edge id="Ext3_to_Int3" from="Ext3" to="Int3" numLanes="2" speed="13.89"/>
+    <edge id="Int3_to_Ext3" from="Int3" to="Ext3" numLanes="2" speed="13.89"/>
+    <edge id="Ext3_to_Sink3" from="Ext3" to="Sink3" numLanes="2" speed="13.89"/>
+    <edge id="C_to_L4" from="CIRCLE" to="L4" numLanes="3" speed="13.89"/>
+    <edge id="L4_to_C" from="L4" to="CIRCLE" numLanes="3" speed="13.89"/>
+    <edge id="L4_to_Int4" from="L4" to="Int4" numLanes="3" speed="13.89"/>
+    <edge id="Int4_to_L4" from="Int4" to="L4" numLanes="3" speed="13.89"/>
+    <edge id="Ext4_to_Int4" from="Ext4" to="Int4" numLanes="2" speed="13.89"/>
+    <edge id="Int4_to_Ext4" from="Int4" to="Ext4" numLanes="2" speed="13.89"/>
+    <edge id="Ext4_to_Sink4" from="Ext4" to="Sink4" numLanes="2" speed="13.89"/>
+    <edge id="C_to_L5" from="CIRCLE" to="L5" numLanes="3" speed="13.89"/>
+    <edge id="L5_to_C" from="L5" to="CIRCLE" numLanes="3" speed="13.89"/>
+    <edge id="L5_to_Int5" from="L5" to="Int5" numLanes="3" speed="13.89"/>
+    <edge id="Int5_to_L5" from="Int5" to="L5" numLanes="3" speed="13.89"/>
+    <edge id="Ext5_to_Int5" from="Ext5" to="Int5" numLanes="2" speed="13.89"/>
+    <edge id="Int5_to_Ext5" from="Int5" to="Ext5" numLanes="2" speed="13.89"/>
+    <edge id="Ext5_to_Sink5" from="Ext5" to="Sink5" numLanes="2" speed="13.89"/>
+    <edge id="C_to_L6" from="CIRCLE" to="L6" numLanes="3" speed="13.89"/>
+    <edge id="L6_to_C" from="L6" to="CIRCLE" numLanes="3" speed="13.89"/>
+    <edge id="L6_to_Int6" from="L6" to="Int6" numLanes="3" speed="13.89"/>
+    <edge id="Int6_to_L6" from="Int6" to="L6" numLanes="3" speed="13.89"/>
+    <edge id="Ext6_to_Int6" from="Ext6" to="Int6" numLanes="2" speed="13.89"/>
+    <edge id="Int6_to_Ext6" from="Int6" to="Ext6" numLanes="2" speed="13.89"/>
+    <edge id="Ext6_to_Sink6" from="Ext6" to="Sink6" numLanes="2" speed="13.89"/>
+    <edge id="BP_1_2" from="Int1" to="Int2" numLanes="1" speed="11.11" color="0,255,0"/>
+    <edge id="BP_1_3" from="Int1" to="Int3" numLanes="1" speed="11.11" color="0,255,0"/>
+    <edge id="BP_6_5" from="Int6" to="Int5" numLanes="1" speed="11.11" color="0,255,0"/>
+    <edge id="BP_6_4" from="Int6" to="Int4" numLanes="1" speed="11.11" color="0,255,0"/>
+    <edge id="BP_1_6" from="Int1" to="Int6" numLanes="1" speed="11.11" color="0,255,0"/>
+    <edge id="BP_3_4" from="Int3" to="Int4" numLanes="1" speed="11.11" color="0,255,0"/>
+</edges>

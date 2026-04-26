@@ -1,0 +1,16 @@
+<edges>
+    <edge id="tbilisi_ave_wide" from="january_20_entry" to="salamzade_start" numLanes="5" speed="22.22"/>
+    
+    <edge id="salamzade_squeeze" from="salamzade_start" to="bridge_choke" numLanes="3" speed="13.89"/>
+    <edge id="to_hasan_aliyev" from="bridge_choke" to="hasan_aliyev_tl" numLanes="3" speed="13.89"/>
+    
+    <edge id="exit_center" from="hasan_aliyev_tl" to="city_center_exit" numLanes="4" speed="22.22"/>
+
+    <edge id="n1" from="city_center_exit" to="loop_NE" numLanes="1" speed="13.89"/>
+    <edge id="n2" from="loop_NE" to="loop_NW" numLanes="1" speed="22.22"/>
+    <edge id="n3" from="loop_NW" to="january_20_entry" numLanes="1" speed="13.89"/>
+
+    <edge id="s1" from="city_center_exit" to="loop_SE" numLanes="2" speed="13.89"/>
+    <edge id="s2" from="loop_SE" to="loop_SW" numLanes="2" speed="22.22"/>
+    <edge id="s3" from="loop_SW" to="january_20_entry" numLanes="2" speed="13.89"/>
+</edges>

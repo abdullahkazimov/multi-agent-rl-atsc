@@ -1,0 +1,7 @@
+<configuration>
+    <input>
+        <net-file value="baku.net.xml"/>
+        <route-files value="baku.rou.xml"/>
+        <additional-files value="baku.tll.xml,baku.add.xml"/>
+    </input>
+</configuration>

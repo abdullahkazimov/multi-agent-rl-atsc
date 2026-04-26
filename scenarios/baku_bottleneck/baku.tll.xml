@@ -1,0 +1,13 @@
+<additional>
+    <tlLogic id="TL_Salamzade" type="static" programID="optimized" offset="0">
+        <phase duration="45" state="GGGGG"/>
+        <phase duration="3"  state="yyyyy"/>
+        <phase duration="20" state="rrrrr"/>
+    </tlLogic>
+
+    <tlLogic id="TL_Hasan_Aliyev" type="static" programID="optimized" offset="57">
+        <phase duration="40" state="GGGG"/>
+        <phase duration="3"  state="yyyy"/>
+        <phase duration="30" state="rrrr"/>
+    </tlLogic>
+</additional>

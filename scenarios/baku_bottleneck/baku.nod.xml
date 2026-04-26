@@ -1,0 +1,16 @@
+<nodes>
+    <node id="january_20_entry" x="0" y="200" type="priority"/>
+    
+    <node id="salamzade_start" x="600" y="200" type="traffic_light" tl="TL_Salamzade"/>
+    
+    <node id="bridge_choke" x="1000" y="200" type="priority"/>
+    
+    <node id="hasan_aliyev_tl" x="1400" y="200" type="traffic_light" tl="TL_Hasan_Aliyev"/>
+    
+    <node id="city_center_exit" x="1800" y="200" type="priority"/>
+
+    <node id="loop_NE" x="1800" y="600" type="priority"/>
+    <node id="loop_NW" x="0" y="600" type="priority"/>
+    <node id="loop_SE" x="1800" y="-200" type="priority"/>
+    <node id="loop_SW" x="0" y="-200" type="priority"/>
+</nodes>

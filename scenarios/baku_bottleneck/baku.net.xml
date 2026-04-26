@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-06T14:35:33.120413+04:00 by Eclipse SUMO netconvert v1_26_0+0011-e6bc1103481
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="baku.nod.xml"/>
+        <edge-files value="baku.edg.xml"/>
+    </input>
+
+    <output>
+        <output-file value="baku.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,200.00" convBoundary="0.00,0.00,1800.00,800.00" origBoundary="0.00,-200.00,1800.00,600.00" projParameter="!"/>
+
+    <edge id=":bridge_choke_0" function="internal">
+        <lane id=":bridge_choke_0_0" index="0" speed="13.89" length="0.10" shape="1000.00,392.00 1000.00,392.00"/>
+        <lane id=":bridge_choke_0_1" index="1" speed="13.89" length="0.10" shape="1000.00,395.20 1000.00,395.20"/>
+        <lane id=":bridge_choke_0_2" index="2" speed="13.89" length="0.10" shape="1000.00,398.40 1000.00,398.40"/>
+    </edge>
+    <edge id=":city_center_exit_0" function="internal">
+        <lane id=":city_center_exit_0_0" index="0" speed="6.51" length="9.03" shape="1789.60,388.80 1792.05,388.45 1793.80,387.40 1794.85,385.65 1795.20,383.20"/>
+        <lane id=":city_center_exit_0_1" index="1" speed="8.00" length="14.19" shape="1789.60,392.00 1793.45,391.45 1796.20,389.80 1797.85,387.05 1798.40,383.20"/>
+    </edge>
+    <edge id=":city_center_exit_2" function="internal">
+        <lane id=":city_center_exit_2_0" index="0" speed="8.10" length="14.57" shape="1789.60,398.40 1794.85,398.75 1798.60,399.80 1800.85,401.55 1801.60,404.00"/>
+    </edge>
+    <edge id=":hasan_aliyev_tl_0" function="internal">
+        <lane id=":hasan_aliyev_tl_0_0" index="0" speed="18.05" length="8.60" shape="1396.00,392.00 1398.46,391.50 1400.00,390.40 1401.54,389.30 1404.00,388.80"/>
+        <lane id=":hasan_aliyev_tl_0_1" index="1" speed="18.05" length="8.60" shape="1396.00,395.20 1398.46,394.70 1400.00,393.60 1401.54,392.50 1404.00,392.00"/>
+        <lane id=":hasan_aliyev_tl_0_2" index="2" speed="18.05" length="8.60" shape="1396.00,398.40 1398.46,397.90 1400.00,396.80 1401.54,395.70 1404.00,395.20"/>
+        <lane id=":hasan_aliyev_tl_0_3" index="3" speed="18.05" length="8.60" shape="1396.00,398.40 1404.00,398.40"/>
+    </edge>
+    <edge id=":january_20_entry_0" function="internal">
+        <lane id=":january_20_entry_0_0" index="0" speed="9.26" length="15.02" shape="-1.60,404.00 -0.85,398.75 1.40,395.00 5.15,392.75 6.11,392.61"/>
+        <lane id=":january_20_entry_0_1" index="1" speed="8.67" length="16.85" shape="-1.60,404.00 -0.85,400.15 1.40,397.40 5.15,395.75 10.40,395.20"/>
+        <lane id=":january_20_entry_0_2" index="2" speed="8.10" length="14.57" shape="-1.60,404.00 -0.85,401.55 1.40,399.80 5.15,398.75 10.40,398.40"/>
+    </edge>
+    <edge id=":january_20_entry_6" function="internal">
+        <lane id=":january_20_entry_6_0" index="0" speed="9.26" length="4.34" shape="6.11,392.61 10.40,392.00"/>
+    </edge>
+    <edge id=":january_20_entry_3" function="internal">
+        <lane id=":january_20_entry_3_0" index="0" speed="6.51" length="9.03" shape="4.80,380.00 5.15,382.45 6.20,384.20 7.95,385.25 10.40,385.60"/>
+        <lane id=":january_20_entry_3_1" index="1" speed="8.00" length="14.19" shape="1.60,380.00 2.15,383.85 3.80,386.60 6.55,388.25 10.40,388.80"/>
+        <lane id=":january_20_entry_3_2" index="2" speed="8.67" length="16.85" shape="1.60,380.00 2.15,385.25 3.80,389.00 6.55,391.25 10.40,392.00"/>
+    </edge>
+    <edge id=":loop_NE_0" function="internal">
+        <lane id=":loop_NE_0_0" index="0" speed="3.90" length="2.58" shape="1801.60,800.00 1801.50,800.70 1801.20,801.20 1800.70,801.50 1800.00,801.60"/>
+    </edge>
+    <edge id=":loop_NW_0" function="internal">
+        <lane id=":loop_NW_0_0" index="0" speed="3.90" length="2.58" shape="0.00,801.60 -0.70,801.50 -1.20,801.20 -1.50,800.70 -1.60,800.00"/>
+    </edge>
+    <edge id=":loop_SE_0" function="internal">
+        <lane id=":loop_SE_0_0" index="0" speed="3.90" length="2.58" shape="1795.20,6.40 1795.10,5.70 1794.80,5.20 1794.30,4.90 1793.60,4.80"/>
+        <lane id=":loop_SE_0_1" index="1" speed="6.08" length="7.74" shape="1798.40,6.40 1798.10,4.30 1797.20,2.80 1795.70,1.90 1793.60,1.60"/>
+    </edge>
+    <edge id=":loop_SW_0" function="internal">
+        <lane id=":loop_SW_0_0" index="0" speed="3.90" length="2.58" shape="6.40,4.80 5.70,4.90 5.20,5.20 4.90,5.70 4.80,6.40"/>
+        <lane id=":loop_SW_0_1" index="1" speed="6.08" length="7.74" shape="6.40,1.60 4.30,1.90 2.80,2.80 1.90,4.30 1.60,6.40"/>
+    </edge>
+    <edge id=":salamzade_start_0" function="internal">
+        <lane id=":salamzade_start_0_0" index="0" speed="18.05" length="8.00" shape="596.00,392.00 604.00,392.00"/>
+        <lane id=":salamzade_start_0_1" index="1" speed="18.05" length="8.00" shape="596.00,395.20 604.00,395.20"/>
+        <lane id=":salamzade_start_0_2" index="2" speed="18.05" length="8.00" shape="596.00,398.40 604.00,398.40"/>
+    </edge>
+
+    <edge id="exit_center" from="hasan_aliyev_tl" to="city_center_exit" priority="-1">
+        <lane id="exit_center_0" index="0" speed="22.22" length="385.60" shape="1404.00,388.80 1789.60,388.80"/>
+        <lane id="exit_center_1" index="1" speed="22.22" length="385.60" shape="1404.00,392.00 1789.60,392.00"/>
+        <lane id="exit_center_2" index="2" speed="22.22" length="385.60" shape="1404.00,395.20 1789.60,395.20"/>
+        <lane id="exit_center_3" index="3" speed="22.22" length="385.60" shape="1404.00,398.40 1789.60,398.40"/>
+    </edge>
+    <edge id="n1" from="city_center_exit" to="loop_NE" priority="-1">
+        <lane id="n1_0" index="0" speed="13.89" length="396.00" shape="1801.60,404.00 1801.60,800.00"/>
+    </edge>
+    <edge id="n2" from="loop_NE" to="loop_NW" priority="-1">
+        <lane id="n2_0" index="0" speed="22.22" length="1800.00" shape="1800.00,801.60 0.00,801.60"/>
+    </edge>
+    <edge id="n3" from="loop_NW" to="january_20_entry" priority="-1">
+        <lane id="n3_0" index="0" speed="13.89" length="396.00" shape="-1.60,800.00 -1.60,404.00"/>
+    </edge>
+    <edge id="s1" from="city_center_exit" to="loop_SE" priority="-1">
+        <lane id="s1_0" index="0" speed="13.89" length="376.80" shape="1795.20,383.20 1795.20,6.40"/>
+        <lane id="s1_1" index="1" speed="13.89" length="376.80" shape="1798.40,383.20 1798.40,6.40"/>
+    </edge>
+    <edge id="s2" from="loop_SE" to="loop_SW" priority="-1">
+        <lane id="s2_0" index="0" speed="22.22" length="1787.20" shape="1793.60,4.80 6.40,4.80"/>
+        <lane id="s2_1" index="1" speed="22.22" length="1787.20" shape="1793.60,1.60 6.40,1.60"/>
+    </edge>
+    <edge id="s3" from="loop_SW" to="january_20_entry" priority="-1">
+        <lane id="s3_0" index="0" speed="13.89" length="373.60" shape="4.80,6.40 4.80,380.00"/>
+        <lane id="s3_1" index="1" speed="13.89" length="373.60" shape="1.60,6.40 1.60,380.00"/>
+    </edge>
+    <edge id="salamzade_squeeze" from="salamzade_start" to="bridge_choke" priority="-1">
+        <lane id="salamzade_squeeze_0" index="0" speed="13.89" length="396.00" shape="604.00,392.00 1000.00,392.00"/>
+        <lane id="salamzade_squeeze_1" index="1" speed="13.89" length="396.00" shape="604.00,395.20 1000.00,395.20"/>
+        <lane id="salamzade_squeeze_2" index="2" speed="13.89" length="396.00" shape="604.00,398.40 1000.00,398.40"/>
+    </edge>
+    <edge id="tbilisi_ave_wide" from="january_20_entry" to="salamzade_start" priority="-1">
+        <lane id="tbilisi_ave_wide_0" index="0" speed="22.22" length="585.60" shape="10.40,385.60 596.00,385.60"/>
+        <lane id="tbilisi_ave_wide_1" index="1" speed="22.22" length="585.60" shape="10.40,388.80 596.00,388.80"/>
+        <lane id="tbilisi_ave_wide_2" index="2" speed="22.22" length="585.60" shape="10.40,392.00 596.00,392.00"/>
+        <lane id="tbilisi_ave_wide_3" index="3" speed="22.22" length="585.60" shape="10.40,395.20 596.00,395.20"/>
+        <lane id="tbilisi_ave_wide_4" index="4" speed="22.22" length="585.60" shape="10.40,398.40 596.00,398.40"/>
+    </edge>
+    <edge id="to_hasan_aliyev" from="bridge_choke" to="hasan_aliyev_tl" priority="-1">
+        <lane id="to_hasan_aliyev_0" index="0" speed="13.89" length="396.00" shape="1000.00,392.00 1396.00,392.00"/>
+        <lane id="to_hasan_aliyev_1" index="1" speed="13.89" length="396.00" shape="1000.00,395.20 1396.00,395.20"/>
+        <lane id="to_hasan_aliyev_2" index="2" speed="13.89" length="396.00" shape="1000.00,398.40 1396.00,398.40"/>
+    </edge>
+
+    <tlLogic id="TL_Hasan_Aliyev" type="static" programID="0" offset="0">
+        <phase duration="82" state="GGGG"/>
+        <phase duration="3"  state="yyyy"/>
+        <phase duration="5"  state="rrrr"/>
+    </tlLogic>
+    <tlLogic id="TL_Salamzade" type="static" programID="0" offset="0">
+        <phase duration="80" state="GGG"/>
+        <phase duration="5"  state="yyy"/>
+        <phase duration="5"  state="rrr"/>
+    </tlLogic>
+
+    <junction id="bridge_choke" type="priority" x="1000.00" y="400.00" incLanes="salamzade_squeeze_0 salamzade_squeeze_1 salamzade_squeeze_2" intLanes=":bridge_choke_0_0 :bridge_choke_0_1 :bridge_choke_0_2" shape="1000.00,400.00 1000.00,390.40 1000.00,400.00">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="city_center_exit" type="priority" x="1800.00" y="400.00" incLanes="exit_center_0 exit_center_1 exit_center_2 exit_center_3" intLanes=":city_center_exit_0_0 :city_center_exit_0_1 :city_center_exit_2_0" shape="1800.00,404.00 1803.20,404.00 1802.96,399.54 1802.37,396.27 1800.83,390.93 1800.24,387.66 1800.00,383.20 1793.60,383.20 1793.16,385.42 1792.60,386.20 1791.82,386.76 1790.82,387.09 1789.60,387.20 1789.60,400.00 1792.78,400.11 1795.38,400.44 1797.40,401.00 1798.84,401.78 1799.71,402.78">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="hasan_aliyev_tl" type="traffic_light" x="1400.00" y="400.00" incLanes="to_hasan_aliyev_0 to_hasan_aliyev_1 to_hasan_aliyev_2" intLanes=":hasan_aliyev_tl_0_0 :hasan_aliyev_tl_0_1 :hasan_aliyev_tl_0_2 :hasan_aliyev_tl_0_3" shape="1404.00,400.00 1404.00,387.20 1400.97,388.03 1399.03,389.57 1397.79,390.16 1396.00,390.40 1396.00,400.00">
+        <request index="0" response="0000" foes="0000" cont="0"/>
+        <request index="1" response="0000" foes="0000" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0000" cont="0"/>
+    </junction>
+    <junction id="january_20_entry" type="priority" x="0.00" y="400.00" incLanes="n3_0 s3_0 s3_1" intLanes=":january_20_entry_6_0 :january_20_entry_0_1 :january_20_entry_0_2 :january_20_entry_3_0 :january_20_entry_3_1 :january_20_entry_3_2" shape="-3.20,404.00 0.00,404.00 1.16,401.78 2.60,401.00 4.62,400.44 7.22,400.11 10.40,400.00 10.40,384.00 8.18,383.56 7.40,383.00 6.84,382.22 6.51,381.22 6.40,380.00 0.00,380.00 -0.24,385.14 -0.83,388.91 -2.37,395.09 -2.96,398.86">
+        <request index="0" response="111000" foes="111000" cont="1"/>
+        <request index="1" response="111000" foes="111000" cont="0"/>
+        <request index="2" response="111000" foes="111000" cont="0"/>
+        <request index="3" response="000000" foes="000111" cont="0"/>
+        <request index="4" response="000000" foes="000111" cont="0"/>
+        <request index="5" response="000000" foes="000111" cont="0"/>
+    </junction>
+    <junction id="loop_NE" type="priority" x="1800.00" y="800.00" incLanes="n1_0" intLanes=":loop_NE_0_0" shape="1803.20,800.00 1800.00,800.00 1800.00,803.20 1801.78,802.84 1802.40,802.40 1802.84,801.78 1803.11,800.98">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="loop_NW" type="priority" x="0.00" y="800.00" incLanes="n2_0" intLanes=":loop_NW_0_0" shape="0.00,803.20 0.00,800.00 -3.20,800.00 -2.84,801.78 -2.40,802.40 -1.78,802.84 -0.98,803.11">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="loop_SE" type="priority" x="1800.00" y="0.00" incLanes="s1_0 s1_1" intLanes=":loop_SE_0_0 :loop_SE_0_1" shape="1793.60,6.40 1800.00,6.40 1799.29,2.84 1798.40,1.60 1797.16,0.71 1795.56,0.18 1793.60,0.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="loop_SW" type="priority" x="0.00" y="0.00" incLanes="s2_0 s2_1" intLanes=":loop_SW_0_0 :loop_SW_0_1" shape="0.00,6.40 6.40,6.40 6.40,0.00 2.84,0.71 1.60,1.60 0.71,2.84 0.18,4.44">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="salamzade_start" type="traffic_light" x="600.00" y="400.00" incLanes="tbilisi_ave_wide_0 tbilisi_ave_wide_1 tbilisi_ave_wide_2 tbilisi_ave_wide_3 tbilisi_ave_wide_4" intLanes=":salamzade_start_0_0 :salamzade_start_0_1 :salamzade_start_0_2" shape="604.00,400.00 604.00,390.40 601.98,389.93 600.79,388.74 599.21,385.66 598.02,384.47 596.00,384.00 596.00,400.00">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+
+    <junction id=":january_20_entry_6_0" type="internal" x="6.11" y="392.61" incLanes=":january_20_entry_0_0 s3_0 s3_1" intLanes=":january_20_entry_3_0 :january_20_entry_3_1 :january_20_entry_3_2"/>
+
+    <connection from="exit_center" to="s1" fromLane="0" toLane="0" via=":city_center_exit_0_0" dir="r" state="M"/>
+    <connection from="exit_center" to="s1" fromLane="1" toLane="1" via=":city_center_exit_0_1" dir="r" state="M"/>
+    <connection from="exit_center" to="n1" fromLane="3" toLane="0" via=":city_center_exit_2_0" dir="l" state="M"/>
+    <connection from="n1" to="n2" fromLane="0" toLane="0" via=":loop_NE_0_0" dir="l" state="M"/>
+    <connection from="n2" to="n3" fromLane="0" toLane="0" via=":loop_NW_0_0" dir="l" state="M"/>
+    <connection from="n3" to="tbilisi_ave_wide" fromLane="0" toLane="2" via=":january_20_entry_0_0" dir="l" state="m"/>
+    <connection from="n3" to="tbilisi_ave_wide" fromLane="0" toLane="3" via=":january_20_entry_0_1" dir="l" state="m"/>
+    <connection from="n3" to="tbilisi_ave_wide" fromLane="0" toLane="4" via=":january_20_entry_0_2" dir="l" state="m"/>
+    <connection from="s1" to="s2" fromLane="0" toLane="0" via=":loop_SE_0_0" dir="r" state="M"/>
+    <connection from="s1" to="s2" fromLane="1" toLane="1" via=":loop_SE_0_1" dir="r" state="M"/>
+    <connection from="s2" to="s3" fromLane="0" toLane="0" via=":loop_SW_0_0" dir="r" state="M"/>
+    <connection from="s2" to="s3" fromLane="1" toLane="1" via=":loop_SW_0_1" dir="r" state="M"/>
+    <connection from="s3" to="tbilisi_ave_wide" fromLane="0" toLane="0" via=":january_20_entry_3_0" dir="r" state="M"/>
+    <connection from="s3" to="tbilisi_ave_wide" fromLane="1" toLane="1" via=":january_20_entry_3_1" dir="r" state="M"/>
+    <connection from="s3" to="tbilisi_ave_wide" fromLane="1" toLane="2" via=":january_20_entry_3_2" dir="r" state="M"/>
+    <connection from="salamzade_squeeze" to="to_hasan_aliyev" fromLane="0" toLane="0" via=":bridge_choke_0_0" dir="s" state="M"/>
+    <connection from="salamzade_squeeze" to="to_hasan_aliyev" fromLane="1" toLane="1" via=":bridge_choke_0_1" dir="s" state="M"/>
+    <connection from="salamzade_squeeze" to="to_hasan_aliyev" fromLane="2" toLane="2" via=":bridge_choke_0_2" dir="s" state="M"/>
+    <connection from="tbilisi_ave_wide" to="salamzade_squeeze" fromLane="2" toLane="0" via=":salamzade_start_0_0" tl="TL_Salamzade" linkIndex="0" dir="s" state="O"/>
+    <connection from="tbilisi_ave_wide" to="salamzade_squeeze" fromLane="3" toLane="1" via=":salamzade_start_0_1" tl="TL_Salamzade" linkIndex="1" dir="s" state="O"/>
+    <connection from="tbilisi_ave_wide" to="salamzade_squeeze" fromLane="4" toLane="2" via=":salamzade_start_0_2" tl="TL_Salamzade" linkIndex="2" dir="s" state="O"/>
+    <connection from="to_hasan_aliyev" to="exit_center" fromLane="0" toLane="0" via=":hasan_aliyev_tl_0_0" tl="TL_Hasan_Aliyev" linkIndex="0" dir="s" state="O"/>
+    <connection from="to_hasan_aliyev" to="exit_center" fromLane="1" toLane="1" via=":hasan_aliyev_tl_0_1" tl="TL_Hasan_Aliyev" linkIndex="1" dir="s" state="O"/>
+    <connection from="to_hasan_aliyev" to="exit_center" fromLane="2" toLane="2" via=":hasan_aliyev_tl_0_2" tl="TL_Hasan_Aliyev" linkIndex="2" dir="s" state="O"/>
+    <connection from="to_hasan_aliyev" to="exit_center" fromLane="2" toLane="3" via=":hasan_aliyev_tl_0_3" tl="TL_Hasan_Aliyev" linkIndex="3" dir="s" state="O"/>
+
+    <connection from=":bridge_choke_0" to="to_hasan_aliyev" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":bridge_choke_0" to="to_hasan_aliyev" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":bridge_choke_0" to="to_hasan_aliyev" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":city_center_exit_0" to="s1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":city_center_exit_0" to="s1" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from=":city_center_exit_2" to="n1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":hasan_aliyev_tl_0" to="exit_center" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":hasan_aliyev_tl_0" to="exit_center" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":hasan_aliyev_tl_0" to="exit_center" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":hasan_aliyev_tl_0" to="exit_center" fromLane="3" toLane="3" dir="s" state="M"/>
+    <connection from=":january_20_entry_0" to="tbilisi_ave_wide" fromLane="0" toLane="2" via=":january_20_entry_6_0" dir="l" state="m"/>
+    <connection from=":january_20_entry_6" to="tbilisi_ave_wide" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":january_20_entry_0" to="tbilisi_ave_wide" fromLane="1" toLane="3" dir="l" state="M"/>
+    <connection from=":january_20_entry_0" to="tbilisi_ave_wide" fromLane="2" toLane="4" dir="l" state="M"/>
+    <connection from=":january_20_entry_3" to="tbilisi_ave_wide" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":january_20_entry_3" to="tbilisi_ave_wide" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from=":january_20_entry_3" to="tbilisi_ave_wide" fromLane="2" toLane="2" dir="r" state="M"/>
+    <connection from=":loop_NE_0" to="n2" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":loop_NW_0" to="n3" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":loop_SE_0" to="s2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":loop_SE_0" to="s2" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from=":loop_SW_0" to="s3" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":loop_SW_0" to="s3" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from=":salamzade_start_0" to="salamzade_squeeze" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":salamzade_start_0" to="salamzade_squeeze" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":salamzade_start_0" to="salamzade_squeeze" fromLane="2" toLane="2" dir="s" state="M"/>
+
+</net>

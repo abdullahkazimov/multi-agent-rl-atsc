@@ -1,0 +1,11 @@
+<nodes>
+    <node id="W_entry" x="-400" y="0" type="priority"/>
+    <node id="Central" x="0" y="0" type="traffic_light"/>
+    <node id="E_exit" x="400" y="0" type="priority"/>
+    <node id="N_entry" x="0" y="400" type="priority"/>
+    <node id="S_exit" x="0" y="-400" type="priority"/>
+    <node id="NW_ped" x="-200" y="200" type="priority"/>
+    <node id="NE_ped" x="200" y="200" type="priority"/>
+    <node id="SW_ped" x="-200" y="-200" type="priority"/>
+    <node id="SE_ped" x="200" y="-200" type="priority"/>
+    </nodes>

@@ -1,0 +1,27 @@
+<nodes>
+    <node id="CIRCLE" x="0" y="0" type="priority" radius="60"/>
+    <node id="L1" x="400.00" y="0.00" type="traffic_light"/>
+    <node id="Int1" x="850.00" y="0.00" type="traffic_light"/>
+    <node id="Ext1" x="1300.00" y="0.00" type="priority"/>
+    <node id="Sink1" x="1500.00" y="0.00" type="priority"/>
+    <node id="L2" x="200.00" y="346.41" type="traffic_light"/>
+    <node id="Int2" x="425.00" y="736.12" type="traffic_light"/>
+    <node id="Ext2" x="650.00" y="1125.83" type="priority"/>
+    <node id="Sink2" x="750.00" y="1299.04" type="priority"/>
+    <node id="L3" x="-200.00" y="346.41" type="traffic_light"/>
+    <node id="Int3" x="-425.00" y="736.12" type="traffic_light"/>
+    <node id="Ext3" x="-650.00" y="1125.83" type="priority"/>
+    <node id="Sink3" x="-750.00" y="1299.04" type="priority"/>
+    <node id="L4" x="-400.00" y="0.00" type="traffic_light"/>
+    <node id="Int4" x="-850.00" y="0.00" type="traffic_light"/>
+    <node id="Ext4" x="-1300.00" y="0.00" type="priority"/>
+    <node id="Sink4" x="-1500.00" y="0.00" type="priority"/>
+    <node id="L5" x="-200.00" y="-346.41" type="traffic_light"/>
+    <node id="Int5" x="-425.00" y="-736.12" type="traffic_light"/>
+    <node id="Ext5" x="-650.00" y="-1125.83" type="priority"/>
+    <node id="Sink5" x="-750.00" y="-1299.04" type="priority"/>
+    <node id="L6" x="200.00" y="-346.41" type="traffic_light"/>
+    <node id="Int6" x="425.00" y="-736.12" type="traffic_light"/>
+    <node id="Ext6" x="650.00" y="-1125.83" type="priority"/>
+    <node id="Sink6" x="750.00" y="-1299.04" type="priority"/>
+</nodes>

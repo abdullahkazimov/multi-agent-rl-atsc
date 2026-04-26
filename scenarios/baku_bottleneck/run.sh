@@ -1,0 +1,1 @@
+sumo-gui -n baku.net.xml -r baku.rou.xml -a baku.tll.xml --time-to-teleport -1
