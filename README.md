@@ -157,7 +157,7 @@ If you use BakuTSC or this controller, please cite:
 @inproceedings{kazimov2026ppo,
   title     = {Proximal Policy Optimization for Adaptive Traffic Signal
                Control on Baku Networks},
-  author    = {Kazimov, Abdullah},
+  author    = {Kazimov, Abdullah and Hasanov, Jamal},
   booktitle = {Proc. IEEE Int. Conf. Application of Information and
                Communication Technologies (AICT)},
   year      = {2026},
