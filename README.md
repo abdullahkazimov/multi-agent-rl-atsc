@@ -91,8 +91,7 @@ against 2025–2026 state-of-the-art methods.
 ├── paper/                 # AICT 2026 IEEE manuscript (LaTeX + figures)
 ├── website/               # static results & animation site (no build step)
 ├── logs/console/          # training / evaluation console logs
-├── tests/                 # pytest suite
-└── run_all.sh             # smoke-test -> train -> analyze -> evaluate
+└── tests/                 # pytest suite
 ```
 
 ## Installation
