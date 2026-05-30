@@ -87,6 +87,7 @@ against 2025–2026 state-of-the-art methods.
 ├── generate_site_data.py  # per-step metrics  -> website/data + paper data
 ├── generate_anim_data.py  # per-vehicle SUMO positions -> website animation
 ├── benchmark_compare.py   # our results vs. 2025–2026 SOTA
+├── launch.py              # serve & open the results website (localhost:8000)
 ├── repro.py               # seeding / reproducibility manifest
 ├── paper/                 # AICT 2026 IEEE manuscript (LaTeX + figures)
 ├── website/               # static results & animation site (no build step)
@@ -126,16 +127,21 @@ python benchmark_compare.py
 
 The `website/` folder is a self-contained static site (results dashboard,
 per-scenario step-by-step charts, a live SUMO traffic animation, and the SOTA
-comparison). No build step — just serve it:
+comparison). No build step — launch it with one command:
 
 ```bash
-cd website && python -m http.server 8000
-# open http://localhost:8000
+python launch.py            # serves website/ and opens http://localhost:8000
 ```
 
-> **Note:** serve it over HTTP as above — opening `index.html` directly as a
-> `file://` URL will show "Could not load data", because browsers block
-> JavaScript from `fetch()`-ing local files.
+or serve it manually:
+
+```bash
+cd website && python -m http.server 8000     # then open http://localhost:8000
+```
+
+> **Note:** the site must be served over HTTP — opening `index.html` directly as
+> a `file://` URL shows "Could not load data", because browsers block JavaScript
+> from `fetch()`-ing local files. `launch.py` handles this for you.
 
 ## Paper
 
