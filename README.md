@@ -8,6 +8,9 @@
 [![SUMO](https://img.shields.io/badge/SUMO-1.18-green.svg)](https://www.eclipse.org/sumo/)
 [![Stable-Baselines3](https://img.shields.io/badge/SB3-2.x-orange.svg)](https://stable-baselines3.readthedocs.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Live demo](https://img.shields.io/badge/live%20demo-online-brightgreen.svg)](https://abdullahkazimov.github.io/multi-agent-rl-atsc/)
+
+### 🔗 [**Explore the live interactive site →**](https://abdullahkazimov.github.io/multi-agent-rl-atsc/)
 
 <img src="docs/img/improvement.png" width="85%" alt="Per-scenario improvement over fixed-time"/>
 
