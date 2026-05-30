@@ -84,6 +84,7 @@ def run_ppo(cfg: dict, seed: int, model_dir: str) -> Dict[str, float]:
         n_phases_per_tl = cfg["n_phases"],
         seed            = seed,
         b0              = b0,
+        meter_tls       = cfg.get("meter_tls"),   # match training env (enables bottleneck metering action)
         label           = f"ppo_{seed}",
     )
     trimmed = TrimmedTrafficEnv(base)
@@ -102,12 +103,12 @@ def run_ppo(cfg: dict, seed: int, model_dir: str) -> Dict[str, float]:
     obs   = vec.reset()
 
     step_metrics: Dict[str, List[float]] = {m: [] for m in METRICS}
-    done  = False
-    step  = 0
+    step = 0
 
-    while not done and step < T_EVAL:
+    while step < T_EVAL:
         action, _ = model.predict(obs, deterministic=True)
-        obs, _, done, info = vec.step(action)
+        obs, _, dones, info = vec.step(action)
+        done = bool(dones[0])  # dones is np.ndarray shape (1,) from VecEnv
 
         if step >= T_WARM:
             m = trimmed.get_metrics()
@@ -117,6 +118,8 @@ def run_ppo(cfg: dict, seed: int, model_dir: str) -> Dict[str, float]:
             step_metrics["throughput"].append(m["arrived"])
 
         step += 1
+        if done:
+            break
 
     vec.close()
     return {k: float(np.mean(v)) if v else 0.0 for k, v in step_metrics.items()}

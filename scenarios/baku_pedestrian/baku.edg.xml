@@ -1,14 +1,20 @@
 <edges>
+    <!-- Vehicle arterials (2 lanes, 40 km/h). Sidewalks added by netconvert
+         (sidewalks.guess); signalised crossings added at Central. -->
     <edge id="W_to_C" from="W_entry" to="Central" numLanes="2" speed="11.11"/>
-    <edge id="C_to_E" from="Central" to="E_exit" numLanes="2" speed="11.11"/>
+    <edge id="C_to_E" from="Central" to="E_exit"  numLanes="2" speed="11.11"/>
     <edge id="N_to_C" from="N_entry" to="Central" numLanes="2" speed="11.11"/>
-    <edge id="C_to_S" from="Central" to="S_exit" numLanes="2" speed="11.11"/>
-    <edge id="NW_to_C" from="NW_ped" to="Central" numLanes="1" speed="5.56"/>
-    <edge id="C_to_NW" from="Central" to="NW_ped" numLanes="1" speed="5.56"/>
-    <edge id="NE_to_C" from="NE_ped" to="Central" numLanes="1" speed="5.56"/>
-    <edge id="C_to_NE" from="Central" to="NE_ped" numLanes="1" speed="5.56"/>
-    <edge id="SW_to_C" from="SW_ped" to="Central" numLanes="1" speed="5.56"/>
-    <edge id="C_to_SW" from="Central" to="SW_ped" numLanes="1" speed="5.56"/>
-    <edge id="SE_to_C" from="SE_ped" to="Central" numLanes="1" speed="5.56"/>
-    <edge id="C_to_SE" from="Central" to="SE_ped" numLanes="1" speed="5.56"/>
+    <edge id="C_to_S" from="Central" to="S_exit"  numLanes="2" speed="11.11"/>
+
+    <!-- Pedestrian footpaths from the four corners (pedestrian-only). Real
+         persons enter here, walk to Central, cross an arterial at the
+         signalised crossing, and exit via another corner footpath. -->
+    <edge id="NW_to_C" from="NW_ped" to="Central" numLanes="1" speed="5.56" allow="pedestrian"/>
+    <edge id="C_to_NW" from="Central" to="NW_ped" numLanes="1" speed="5.56" allow="pedestrian"/>
+    <edge id="NE_to_C" from="NE_ped" to="Central" numLanes="1" speed="5.56" allow="pedestrian"/>
+    <edge id="C_to_NE" from="Central" to="NE_ped" numLanes="1" speed="5.56" allow="pedestrian"/>
+    <edge id="SW_to_C" from="SW_ped" to="Central" numLanes="1" speed="5.56" allow="pedestrian"/>
+    <edge id="C_to_SW" from="Central" to="SW_ped" numLanes="1" speed="5.56" allow="pedestrian"/>
+    <edge id="SE_to_C" from="SE_ped" to="Central" numLanes="1" speed="5.56" allow="pedestrian"/>
+    <edge id="C_to_SE" from="Central" to="SE_ped" numLanes="1" speed="5.56" allow="pedestrian"/>
     </edges>

@@ -1,0 +1,9 @@
+<connections>
+    <!-- Explicit signalised crossings over each arterial arm at Central, so
+         pedestrians can cross the roads (crossings.guess fails to place them
+         on these one-way single-edge arms). -->
+    <crossing node="Central" edges="W_to_C"/>
+    <crossing node="Central" edges="C_to_E"/>
+    <crossing node="Central" edges="N_to_C"/>
+    <crossing node="Central" edges="C_to_S"/>
+    </connections>

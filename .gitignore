@@ -1,0 +1,39 @@
+# ── Python ─────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# ── Tooling caches ───────────────────────────────────────────────────────────
+.pytest_cache/
+.ipynb_checkpoints/
+.mypy_cache/
+.ruff_cache/
+
+# ── Editors / OS ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ── Process / scratch output ─────────────────────────────────────────────────
+nohup.out
+*_gen.log          # transient data-generation logs (data is regenerated)
+data_1000/_*.log
+
+# ── LaTeX build artifacts (paper sources are kept; build products are not) ───
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.synctex.gz
+
+# ── SUMO runtime spam ────────────────────────────────────────────────────────
+*.sumo.log

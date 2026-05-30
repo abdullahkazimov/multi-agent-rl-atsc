@@ -61,6 +61,9 @@ class TrimmedTrafficEnv(gym.Wrapper):
     def get_metrics(self) -> dict:
         return self.env.get_metrics()
 
+    def get_per_tl_metrics(self) -> dict:
+        return self.env.get_per_tl_metrics()
+
     # ── Internal ─────────────────────────────────────────────────────────
 
     def _trim_obs(self, obs: np.ndarray) -> np.ndarray:

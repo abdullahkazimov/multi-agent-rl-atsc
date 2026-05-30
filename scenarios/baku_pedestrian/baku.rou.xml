@@ -1,10 +1,25 @@
 <routes>
     <vType id="car" accel="2.6" decel="4.5" length="5" maxSpeed="11.11" guiShape="passenger" color="green"/>
-    <vType id="pedestrian" accel="1.0" decel="2.0" length="0.5" maxSpeed="1.39" guiShape="pedestrian" color="red"/>
+    <vType id="ped" vClass="pedestrian" guiShape="pedestrian" color="red"/>
+
+    <!-- Vehicle arterials through the Central signal -->
     <flow id="main_ew" type="car" begin="0" end="3600" vehsPerHour="600" from="W_to_C" to="C_to_E"/>
     <flow id="main_ns" type="car" begin="0" end="3600" vehsPerHour="400" from="N_to_C" to="C_to_S"/>
-    <flow id="ped_nw" type="pedestrian" begin="0" end="3600" vehsPerHour="200" from="NW_to_C" to="C_to_SE"/>
-    <flow id="ped_ne" type="pedestrian" begin="0" end="3600" vehsPerHour="180" from="NE_to_C" to="C_to_SW"/>
-    <flow id="ped_sw" type="pedestrian" begin="0" end="3600" vehsPerHour="150" from="SW_to_C" to="C_to_NE"/>
-    <flow id="ped_se" type="pedestrian" begin="0" end="3600" vehsPerHour="170" from="SE_to_C" to="C_to_NW"/>
+
+    <!-- Real pedestrians (rebuilt 2026-05-29, PLAN.md R3). Each personFlow enters
+         on a corner footpath, walks to Central, crosses the arterial(s) at the
+         signalised crossings, and exits at the opposite corner. The intermodal
+         router places them on sidewalks/crossings automatically. -->
+    <personFlow id="ped_nw_se" type="ped" begin="0" end="3600" perHour="200">
+        <personTrip from="NW_to_C" to="C_to_SE"/>
+    </personFlow>
+    <personFlow id="ped_ne_sw" type="ped" begin="0" end="3600" perHour="180">
+        <personTrip from="NE_to_C" to="C_to_SW"/>
+    </personFlow>
+    <personFlow id="ped_sw_ne" type="ped" begin="0" end="3600" perHour="150">
+        <personTrip from="SW_to_C" to="C_to_NE"/>
+    </personFlow>
+    <personFlow id="ped_se_nw" type="ped" begin="0" end="3600" perHour="170">
+        <personTrip from="SE_to_C" to="C_to_NW"/>
+    </personFlow>
     </routes>

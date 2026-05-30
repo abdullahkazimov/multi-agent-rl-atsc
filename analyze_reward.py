@@ -99,10 +99,10 @@ def collect_fixed_time_samples(
 
     DELTA_TIME = BakuSUMOEnv.DELTA_TIME
     for _ in range(n_steps):
+        arrived = 0
         for __ in range(DELTA_TIME):
             traci.simulationStep()
-
-        arrived = traci.simulation.getArrivedNumber()
+            arrived += int(traci.simulation.getArrivedNumber())
         sr_all, wt_all, ql_all, tl_sr = [], [], [], {tl: [] for tl in tl_ids}
 
         for tl_id in tl_ids:

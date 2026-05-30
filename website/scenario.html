@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scenario — MARL-ATSC Baku</title>
+  <meta name="description" content="Step-by-step evaluation of PPO vs fixed-time baseline for a Baku SUMO traffic scenario.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    /* page-level overrides only */
+    body { min-height: 100vh; }
+    .page-body { padding: 0 0 80px; }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <div class="nav-logo">
+      <div class="dot">RL</div>
+      <a href="index.html" style="color:inherit;text-decoration:none">MARL-ATSC Baku</a>
+    </div>
+    <div class="nav-links">
+      <a href="index.html#scenarios">All Scenarios</a>
+      <a href="index.html#results">Results</a>
+      <a href="animation.html" style="color:var(--green)">▶ Animation</a>
+      <a href="comparison.html">SOTA</a>
+      <a href="index.html#methodology">Methodology</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Scenario header ────────────────────────────────────────────────────── -->
+<header class="sc-header">
+  <div class="container">
+    <div class="sc-breadcrumb">
+      <a href="index.html">← All Scenarios</a>
+    </div>
+    <div class="sc-title-row">
+      <div class="sc-icon" id="sc-icon">🚦</div>
+      <div class="sc-title-text">
+        <h1 id="sc-title">Loading…</h1>
+        <div class="sc-subtitle" id="sc-subtitle"></div>
+        <div class="sc-pills" id="sc-pills"></div>
+      </div>
+    </div>
+    <div class="sc-description" id="sc-desc"></div>
+  </div>
+</header>
+
+<div class="page-body">
+  <div class="container">
+
+    <!-- ── Seed selector ───────────────────────────────────────────────────── -->
+    <div class="seed-bar" id="seed-bar">
+      <span class="seed-bar-label">Demand seed:</span>
+      <!-- populated by JS -->
+    </div>
+
+    <!-- ── Summary metric cards ──────────────────────────────────────────── -->
+    <div class="metric-cards" id="metric-cards">
+      <!-- populated by JS -->
+    </div>
+
+    <!-- ── Advantage heatmap ─────────────────────────────────────────────── -->
+    <div class="heatmap-section">
+      <div class="heatmap-header">
+        <div>
+          <div class="heatmap-title">Advantage Timeline — Where RL Beats Fixed-Time</div>
+          <div class="heatmap-sub">Each column = one 10-second decision step. Color intensity = magnitude of improvement. Dashed line = start of evaluation window (warm-up excluded).</div>
+        </div>
+        <div class="heatmap-legend">
+          <div class="legend-item"><div class="legend-swatch legend-green"></div>RL better</div>
+          <div class="legend-item"><div class="legend-swatch legend-red"></div>Fixed-Time better</div>
+          <div class="legend-item"><div class="legend-swatch legend-dim"></div>Warm-up period</div>
+        </div>
+      </div>
+      <div class="heatmap-wrap">
+        <canvas class="heatmap-canvas" id="heatmap"></canvas>
+        <div class="heatmap-tooltip" id="heatmap-tooltip"></div>
+      </div>
+    </div>
+
+    <!-- ── Metric time-series charts ─────────────────────────────────────── -->
+    <div class="charts-section">
+      <h2 style="font-size:16px;font-weight:700;margin-bottom:18px;">
+        Metric Time Series
+        <span style="font-weight:400;font-size:13px;color:var(--txt-2);margin-left:10px">
+          — <span style="color:var(--orange)">■ Fixed-Time</span> &nbsp; <span style="color:var(--green)">■ PPO (Best)</span>
+          &nbsp;·&nbsp; Shaded area: <span style="color:var(--green)">green = RL better</span>, <span style="color:var(--red)">red = RL worse</span>
+        </span>
+      </h2>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+            <div>
+              <h3>Avg. Waiting Time</h3>
+              <div style="font-size:11px;color:var(--txt-3)">seconds per vehicle-lane · lower is better</div>
+            </div>
+            <span class="chart-imp" id="imp-waiting_time">…</span>
+          </div>
+          <canvas id="chart-waiting_time" class="chart-canvas"></canvas>
+        </div>
+        <div class="chart-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+            <div>
+              <h3>Avg. Queue Length</h3>
+              <div style="font-size:11px;color:var(--txt-3)">halting vehicles per controlled lane · lower is better</div>
+            </div>
+            <span class="chart-imp" id="imp-queue_length">…</span>
+          </div>
+          <canvas id="chart-queue_length" class="chart-canvas"></canvas>
+        </div>
+        <div class="chart-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+            <div>
+              <h3>Stopped Vehicle Ratio</h3>
+              <div style="font-size:11px;color:var(--txt-3)">fraction of lane capacity halting · lower is better</div>
+            </div>
+            <span class="chart-imp" id="imp-stopped_ratio">…</span>
+          </div>
+          <canvas id="chart-stopped_ratio" class="chart-canvas"></canvas>
+        </div>
+        <div class="chart-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+            <div>
+              <h3>Throughput</h3>
+              <div style="font-size:11px;color:var(--txt-3)">vehicles arriving per decision step · higher is better</div>
+            </div>
+            <span class="chart-imp" id="imp-throughput">…</span>
+          </div>
+          <canvas id="chart-throughput" class="chart-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Per-seed breakdown ─────────────────────────────────────────────── -->
+    <div class="seeds-section">
+      <h2>Per-Seed Breakdown</h2>
+      <div id="seeds-table-wrap">
+        <div class="loading-state"><div class="spinner"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────────── -->
+<footer class="footer" style="margin-top:0">
+  <div class="container">
+    <p>MARL-ATSC Baku — Abdullah Kazimov, ADA University, 2026</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="assets/scenario.js"></script>
+</body>
+</html>

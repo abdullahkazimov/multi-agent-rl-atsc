@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARL-ATSC Baku — Multi-Agent RL for Traffic Signal Control</title>
+  <meta name="description" content="Multi-Agent Reinforcement Learning for Adaptive Traffic Signal Control across four Baku real-world road networks. PPO vs Fixed-Time baseline evaluation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<!-- ── Navigation ────────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <div class="nav-logo">
+      <div class="dot">RL</div>
+      <span>MARL-ATSC Baku</span>
+    </div>
+    <div class="nav-links">
+      <a href="#scenarios">Scenarios</a>
+      <a href="#results">Results</a>
+      <a href="animation.html" style="color:var(--green)">▶ Animation</a>
+      <a href="comparison.html">SOTA</a>
+      <a href="#methodology">Methodology</a>
+      <a href="#about">About</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge"><span></span> MS Thesis — ADA University, 2026</div>
+
+    <h1>
+      Multi-Agent Reinforcement Learning<br>
+      for <span class="grad-text">Adaptive Traffic Signal Control</span>
+    </h1>
+    <p>
+      PPO agents trained across four Baku real-world road networks using SUMO 1.18.
+      Evaluated against fixed-time baselines on matched-demand seeds — up to
+      <strong style="color:#10b981">84% reduction</strong> in average waiting time.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#scenarios" class="btn btn-primary">Explore Scenarios →</a>
+      <a href="#results" class="btn btn-outline">View Full Results</a>
+    </div>
+
+    <!-- Key stats — populated by JS with mean improvement across all seeds -->
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num" data-target="bottleneck" data-metric="waiting_time">…</div>
+        <div class="label">Wait Time ↓</div>
+        <div class="sub">Bottleneck</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num" data-target="main" data-metric="waiting_time">…</div>
+        <div class="label">Wait Time ↓</div>
+        <div class="sub">Main Arterial</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num" data-target="pedestrian" data-metric="waiting_time">…</div>
+        <div class="label">Wait Time ↓</div>
+        <div class="sub">Pedestrian</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num" data-target="hexagon" data-metric="waiting_time">…</div>
+        <div class="label">Wait Time ↓</div>
+        <div class="sub">Hexagon</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Scenarios ─────────────────────────────────────────────────────────── -->
+<section class="section" id="scenarios">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Four Real-World Baku Scenarios</h2>
+      <p>Each scenario uses a distinct network topology, demand profile, and TL structure — from a 2-junction bottleneck to a 12-TL highway sub-network.</p>
+    </div>
+
+    <div class="scenarios-grid" id="scenario-cards">
+      <!-- Populated by landing.js -->
+      <div class="loading-state" style="grid-column:1/-1">
+        <div class="spinner"></div> Loading scenario data…
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Results table ─────────────────────────────────────────────────────── -->
+<section class="section-sm" id="results" style="background:var(--bg-card); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Performance Summary</h2>
+      <p>Mean % improvement of PPO (best checkpoint) over fixed-time baseline across all evaluation seeds.</p>
+    </div>
+
+    <div id="results-table-wrap">
+      <div class="loading-state"><div class="spinner"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Methodology ────────────────────────────────────────────────────────── -->
+<section class="section" id="methodology">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Methodology</h2>
+      <p>Thesis §3 — Training protocol, reward design, and evaluation procedure.</p>
+    </div>
+
+    <div class="method-grid" style="margin-bottom:40px">
+      <div class="method-card fade-in">
+        <div class="icon">🤖</div>
+        <h3>PPO with Shared Policy</h3>
+        <p>Proximal Policy Optimization via Stable-Baselines3. A single MLP policy (128×128) controls all TLs in a scenario via a MultiDiscrete action space — one green-phase selection per TL per 10-second decision step.</p>
+      </div>
+      <div class="method-card fade-in">
+        <div class="icon">🚦</div>
+        <h3>7-Term Composite Reward</h3>
+        <p>Reward balances five objectives with thesis-calibrated β weights: throughput (β=0.15), stopped-vehicle ratio (β=0.30), waiting time (β=0.55, primary), queue length (β=0.12), and phase-starvation penalty (β=1.00).</p>
+      </div>
+      <div class="method-card fade-in">
+        <div class="icon">📊</div>
+        <h3>Matched-Snapshot Evaluation</h3>
+        <p>For each seed, the identical demand schedule is run under both fixed-time and PPO control. 1 000 decision steps per episode, first 100 discarded as warm-up. Δm = (FT−RL)/FT×100% for minimisation metrics.</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:16px;color:var(--txt-2)">Training Hyper-Parameters</h3>
+    <div class="params-grid">
+      <div class="param-item"><div class="p-key">Algorithm</div><div class="p-value">PPO</div></div>
+      <div class="param-item"><div class="p-key">Policy</div><div class="p-value">MLP 128×128</div></div>
+      <div class="param-item"><div class="p-key">LR schedule</div><div class="p-value">3e-4 → 3e-5</div></div>
+      <div class="param-item"><div class="p-key">n_steps</div><div class="p-value">1 024</div></div>
+      <div class="param-item"><div class="p-key">batch_size</div><div class="p-value">64</div></div>
+      <div class="param-item"><div class="p-key">n_epochs</div><div class="p-value">10</div></div>
+      <div class="param-item"><div class="p-key">γ (gamma)</div><div class="p-value">0.99</div></div>
+      <div class="param-item"><div class="p-key">ε (clip)</div><div class="p-value">0.2</div></div>
+      <div class="param-item"><div class="p-key">target KL</div><div class="p-value">0.03</div></div>
+      <div class="param-item"><div class="p-key">Parallel envs</div><div class="p-value">4 (Subproc)</div></div>
+      <div class="param-item"><div class="p-key">Training steps</div><div class="p-value">400k – 600k</div></div>
+      <div class="param-item"><div class="p-key">Simulator</div><div class="p-value">SUMO 1.18</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About ──────────────────────────────────────────────────────────────── -->
+<section class="section-sm" id="about" style="border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="section-heading">
+      <h2>About This Project</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-card fade-in">
+        <h3>Thesis</h3>
+        <p>
+          This website presents the experimental results from an MS thesis on
+          multi-agent reinforcement learning for adaptive traffic signal control,
+          conducted at ADA University's School of Information Technologies and Engineering.
+        </p>
+        <p>
+          All four SUMO scenarios are modelled on real Baku, Azerbaijan road networks
+          and calibrated to realistic demand levels. The codebase is built on
+          Stable-Baselines3, SUMO 1.18, and Gymnasium 1.2.
+        </p>
+        <ul class="kv-list">
+          <li><span class="kv-key">Author</span><span class="kv-val">Abdullah Kazimov</span></li>
+          <li><span class="kv-key">Degree</span><span class="kv-val">MS Computer Science</span></li>
+          <li><span class="kv-key">University</span><span class="kv-val">ADA University, Baku</span></li>
+          <li><span class="kv-key">Year</span><span class="kv-val">2026</span></li>
+        </ul>
+      </div>
+      <div class="about-card fade-in">
+        <h3>Technical Stack</h3>
+        <ul class="kv-list">
+          <li><span class="kv-key">Simulator</span><span class="kv-val">Eclipse SUMO 1.18 (TraCI)</span></li>
+          <li><span class="kv-key">RL library</span><span class="kv-val">Stable-Baselines3 2.8</span></li>
+          <li><span class="kv-key">Env API</span><span class="kv-val">Gymnasium 1.2</span></li>
+          <li><span class="kv-key">Algorithm</span><span class="kv-val">Proximal Policy Optimization</span></li>
+          <li><span class="kv-key">Norm.</span><span class="kv-val">VecNormalize (obs + reward)</span></li>
+          <li><span class="kv-key">Hardware</span><span class="kv-val">Azure D8s_v3 (8 vCPU)</span></li>
+          <li><span class="kv-key">Training time</span><span class="kv-val">~18 h per full pipeline</span></li>
+          <li><span class="kv-key">Eval protocol</span><span class="kv-val">Thesis §3.7 matched-snapshot</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <p>MARL-ATSC Baku — Abdullah Kazimov, ADA University, 2026</p>
+    <p>Built with <a href="https://sumo.dlr.de">SUMO 1.18</a>, <a href="https://stable-baselines3.readthedocs.io">Stable-Baselines3</a>, and <a href="https://www.chartjs.org">Chart.js</a></p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="assets/landing.js"></script>
+</body>
+</html>

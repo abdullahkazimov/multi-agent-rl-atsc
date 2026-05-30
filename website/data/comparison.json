@@ -1,0 +1,354 @@
+{
+  "generated": "2026-05-30",
+  "our_method": {
+    "method": "PPO (SB3) + 7-term composite reward + VecNormalize",
+    "ref": "This thesis (ADA University, 2026)",
+    "algorithm": "PPO",
+    "training_steps": "400k\u2013600k",
+    "architecture": "MLP 128\u00d7128",
+    "eval_protocol": "Matched-snapshot, all eval seeds, best checkpoint",
+    "scenarios": {
+      "bottleneck": {
+        "title": "Baku Bottleneck",
+        "n_tls": 2,
+        "demand_veh_h": 3000,
+        "seeds": 5,
+        "improvement": {
+          "waiting_time": 71.9,
+          "queue_length": 72.1,
+          "stopped_ratio": 70.3,
+          "throughput": 1.2
+        }
+      },
+      "main": {
+        "title": "Baku Main Arterial",
+        "n_tls": 3,
+        "demand_veh_h": 1330,
+        "seeds": 10,
+        "improvement": {
+          "waiting_time": 80.6,
+          "queue_length": 70.2,
+          "stopped_ratio": 71.9,
+          "throughput": 5.5
+        }
+      },
+      "pedestrian": {
+        "title": "Baku Pedestrian Junction",
+        "n_tls": 1,
+        "demand_veh_h": 1000,
+        "seeds": 5,
+        "improvement": {
+          "waiting_time": 19.3,
+          "queue_length": 11.6,
+          "stopped_ratio": 11.6,
+          "throughput": -0.6
+        }
+      },
+      "hexagon": {
+        "title": "Baku Hexagon Highway",
+        "n_tls": 12,
+        "demand_veh_h": 2600,
+        "seeds": 5,
+        "improvement": {
+          "waiting_time": 100.0,
+          "queue_length": 99.2,
+          "stopped_ratio": 98.4,
+          "throughput": 15.0
+        }
+      }
+    }
+  },
+  "sota_results": [
+    {
+      "paper": "T-REX (2025)",
+      "ref": "arXiv:2506.13836",
+      "method": "IDQN",
+      "scenario": "RESCO Grid 4\u00d74",
+      "n_tls": 16,
+      "metric": "travel_time",
+      "ft_val": 204.51,
+      "rl_val": 145.79,
+      "improvement_pct": 28.71253239450394
+    },
+    {
+      "paper": "T-REX (2025)",
+      "ref": "arXiv:2506.13836",
+      "method": "MPLight",
+      "scenario": "RESCO Grid 4\u00d74",
+      "n_tls": 16,
+      "metric": "travel_time",
+      "ft_val": 204.51,
+      "rl_val": 160.38,
+      "improvement_pct": 21.5784069238668
+    },
+    {
+      "paper": "T-REX (2025)",
+      "ref": "arXiv:2506.13836",
+      "method": "FMA2C",
+      "scenario": "RESCO Grid 4\u00d74",
+      "n_tls": 16,
+      "metric": "travel_time",
+      "ft_val": 204.51,
+      "rl_val": 215.75,
+      "improvement_pct": -5.496063762163224
+    },
+    {
+      "paper": "T-REX (2025)",
+      "ref": "arXiv:2506.13836",
+      "method": "IDQN",
+      "scenario": "RESCO Grid 4\u00d74",
+      "n_tls": 16,
+      "metric": "waiting_time",
+      "ft_val": null,
+      "rl_val": 12.49,
+      "improvement_pct": null,
+      "note": "FT waiting time not reported; IDQN=12.49s, MPLight=21.97s, FMA2C=76.38s"
+    },
+    {
+      "paper": "T-REX (2025)",
+      "ref": "arXiv:2506.13836",
+      "method": "IDQN",
+      "scenario": "RESCO Cologne Corridor",
+      "n_tls": 3,
+      "metric": "travel_time",
+      "ft_val": 76.23,
+      "rl_val": 91.6,
+      "improvement_pct": -20.162665617211058
+    },
+    {
+      "paper": "T-REX (2025)",
+      "ref": "arXiv:2506.13836",
+      "method": "MPLight",
+      "scenario": "RESCO Cologne Corridor",
+      "n_tls": 3,
+      "metric": "travel_time",
+      "ft_val": 76.23,
+      "rl_val": 111.0,
+      "improvement_pct": -45.61196379378197
+    },
+    {
+      "paper": "T-REX (2025)",
+      "ref": "arXiv:2506.13836",
+      "method": "FMA2C",
+      "scenario": "RESCO Cologne Corridor",
+      "n_tls": 3,
+      "metric": "travel_time",
+      "ft_val": 76.23,
+      "rl_val": 88.35,
+      "improvement_pct": -15.899252262888613
+    },
+    {
+      "paper": "T-REX (2025)",
+      "ref": "arXiv:2506.13836",
+      "method": "IDQN",
+      "scenario": "RESCO Ingolstadt Region",
+      "n_tls": 21,
+      "metric": "travel_time",
+      "ft_val": 295.22,
+      "rl_val": 242.88,
+      "improvement_pct": 17.729151141521587
+    },
+    {
+      "paper": "T-REX (2025)",
+      "ref": "arXiv:2506.13836",
+      "method": "FMA2C",
+      "scenario": "RESCO Ingolstadt Region",
+      "n_tls": 21,
+      "metric": "travel_time",
+      "ft_val": 295.22,
+      "rl_val": 252.65,
+      "improvement_pct": 14.419754759162664
+    },
+    {
+      "paper": "Mahato (2025)",
+      "ref": "arXiv:2505.14544",
+      "method": "MARL (custom)",
+      "scenario": "2\u00d72 grid (4 intersections)",
+      "n_tls": 4,
+      "metric": "waiting_time",
+      "ft_val": 5263.82,
+      "rl_val": 1144.77,
+      "improvement_pct": 78.25
+    },
+    {
+      "paper": "Mahato (2025)",
+      "ref": "arXiv:2505.14544",
+      "method": "MARL (custom)",
+      "scenario": "2\u00d72 grid (4 intersections)",
+      "n_tls": 4,
+      "metric": "throughput",
+      "ft_val": 1146.4,
+      "rl_val": 1153.15,
+      "improvement_pct": 0.59
+    },
+    {
+      "paper": "Martinez et al. (2025)",
+      "ref": "arXiv:2503.02189",
+      "method": "MA-PPO (CTDE)",
+      "scenario": "7-intersection arterial (PTV-Vissim)",
+      "n_tls": 7,
+      "metric": "travel_time",
+      "ft_val": null,
+      "rl_val": null,
+      "improvement_pct": 24.0,
+      "note": "vs actuated control (field-deployed ASC), primary direction +2%, secondary +24%"
+    },
+    {
+      "paper": "Robust MARL (2026)",
+      "ref": "arXiv:2603.12096",
+      "method": "MAPPO + TRR + EPDA",
+      "scenario": "VISSIM (undisclosed network)",
+      "n_tls": null,
+      "metric": "waiting_time",
+      "ft_val": null,
+      "rl_val": null,
+      "improvement_pct": 10.0,
+      "note": ">10% improvement vs standard RL baselines; FT comparison not reported"
+    },
+    {
+      "paper": "VCL-PPO (2025)",
+      "ref": "arXiv:2602.12296",
+      "method": "VCL-PPO",
+      "scenario": "Single intersection (6 demand levels: 500\u20133000 veh/h)",
+      "n_tls": 1,
+      "metric": "waiting_time",
+      "ft_val": null,
+      "rl_val": null,
+      "improvement_pct": null,
+      "note": "Best-performing among fixed/actuated/DQN/PPO; specific % not extracted from gated paper"
+    },
+    {
+      "paper": "Federated DRL (2025)",
+      "ref": "Nature Scientific Reports",
+      "method": "Federated PPO",
+      "scenario": "Arterial (multi-intersection, high-demand E-W corridor)",
+      "n_tls": null,
+      "metric": "waiting_time",
+      "ft_val": null,
+      "rl_val": null,
+      "improvement_pct": 37.0,
+      "note": "32% vs actuated, 37% vs fixed-time (high demand regime); from search snippet"
+    }
+  ],
+  "method_features": [
+    {
+      "method": "IDQN (RESCO baseline)",
+      "algorithm": "Independent DQN",
+      "reward": "Queue length (single-term)",
+      "obs": "Lane queues + phase",
+      "training_steps": "100 episodes",
+      "norm": "None",
+      "multi_seed": false,
+      "best_ckpt": false,
+      "notes": "Value-based, no shared policy"
+    },
+    {
+      "method": "IPPO (RESCO baseline)",
+      "algorithm": "Independent PPO",
+      "reward": "Queue length (single-term)",
+      "obs": "Lane queues + phase",
+      "training_steps": "1400 episodes",
+      "norm": "None",
+      "multi_seed": false,
+      "best_ckpt": false,
+      "notes": "Policy-based, independent agents"
+    },
+    {
+      "method": "MPLight",
+      "algorithm": "DQN + pressure",
+      "reward": "Pressure (queue difference)",
+      "obs": "Phase pressure",
+      "training_steps": "100 episodes",
+      "norm": "None",
+      "multi_seed": false,
+      "best_ckpt": false,
+      "notes": "Physics-informed reward"
+    },
+    {
+      "method": "FMA2C",
+      "algorithm": "A2C + fingerprinting",
+      "reward": "Queue + delay",
+      "obs": "Lane queues + neighbour phase",
+      "training_steps": "1400 episodes",
+      "norm": "None",
+      "multi_seed": false,
+      "best_ckpt": false,
+      "notes": "Communication via fingerprints"
+    },
+    {
+      "method": "MA-PPO (Martinez 2025)",
+      "algorithm": "PPO (CTDE)",
+      "reward": "Delay-based",
+      "obs": "8-phase ring-barrier",
+      "training_steps": "Not reported",
+      "norm": "Not reported",
+      "multi_seed": false,
+      "best_ckpt": false,
+      "notes": "Field-realistic 8-phase config"
+    },
+    {
+      "method": "MAPPO + TRR (2026)",
+      "algorithm": "MAPPO (CTDE)",
+      "reward": "Waiting time",
+      "obs": "Neighbour-based",
+      "training_steps": "Not reported",
+      "norm": "Not reported",
+      "multi_seed": false,
+      "best_ckpt": false,
+      "notes": "Turning ratio randomisation, exponential phase adjustment"
+    },
+    {
+      "method": "PPO-ATSC (Ours)",
+      "algorithm": "PPO + SubprocVecEnv(4)",
+      "reward": "7-term composite (wait \u03b2=0.55, starvation \u03b2=1.0, LC \u03b2=0.60)",
+      "obs": "Lane ratios + phase + steps + starvation + ped_pressure",
+      "training_steps": "400k\u2013600k timesteps",
+      "norm": "VecNormalize (obs + reward, clip=10)",
+      "multi_seed": true,
+      "best_ckpt": true,
+      "notes": "Anti-collapse best-ckpt guard, metering action for bottleneck, pedestrian phases"
+    }
+  ],
+  "papers": [
+    {
+      "id": "trex2025",
+      "title": "Robustness of RL-Based Traffic Signal Control under Incidents: A Comparative Study",
+      "ref": "arXiv:2506.13836",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2506.13836",
+      "key_finding": "RL methods (IDQN, MPLight, FMA2C) underperform fixed-time on Cologne Corridor; IDQN best on Grid 4\u00d74 (+28.7% travel time)"
+    },
+    {
+      "id": "mahato2025",
+      "title": "Smart Traffic Signals: Comparing MARL and Fixed-Time Strategies",
+      "ref": "arXiv:2505.14544",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2505.14544",
+      "key_finding": "MARL achieves 78.25% wait-time reduction on 2\u00d72 grid vs fixed-time"
+    },
+    {
+      "id": "martinez2025",
+      "title": "Adaptive TSC based on MARL \u2014 Case Study on a Simulated Real-World Corridor",
+      "ref": "arXiv:2503.02189",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.02189",
+      "key_finding": "MA-PPO (CTDE) outperforms actuated control: +2% primary, +24% secondary direction travel time"
+    },
+    {
+      "id": "robust2026",
+      "title": "A Robust and Efficient MARL Framework for Traffic Signal Control",
+      "ref": "arXiv:2603.12096",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2603.12096",
+      "key_finding": "MAPPO + Turning Ratio Randomisation + Exponential Phase Adjustment: >10% improvement vs standard RL"
+    },
+    {
+      "id": "vclppo2025",
+      "title": "Adaptive TSC Optimization \u2014 Novel Road Partition & Multi-Channel State Representation",
+      "ref": "arXiv:2602.12296",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2602.12296",
+      "key_finding": "VCL-PPO achieves best performance among DQN/PPO variants on single intersection across 6 demand levels"
+    }
+  ]
+}

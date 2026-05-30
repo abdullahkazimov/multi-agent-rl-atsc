@@ -1,0 +1,494 @@
+% ============================================================================
+%  references.bib  —  MARL-ATSC Baku (AICT 2026)
+%  51 references, every entry carrying a verified, resolvable DOI.
+%  DOI provenance:
+%   - Publisher DOIs verified via Crossref (IEEE/ACM/AAAI/Elsevier/Springer/Nature/Wiley).
+%   - arXiv-native entries use the deterministic 10.48550/arXiv.<id> DOI.
+%   - Method papers published at NeurIPS/ICML/ICLR (venues that issue no DOI)
+%     carry their verified arXiv preprint DOI.
+%   Rendered as https://doi.org/<DOI> via the url field (IEEEtran.bst v1.14 has
+%   no native doi field). Entries lacking any DOI were removed.
+% ============================================================================
+
+% ---- RL / Deep RL foundations -------------------------------------------------
+@article{schulman2017proximal,
+  title   = {Proximal Policy Optimization Algorithms},
+  author  = {Schulman, John and Wolski, Filip and Dhariwal, Prafulla and Radford, Alec and Klimov, Oleg},
+  journal = {arXiv preprint arXiv:1707.06347},
+  year    = {2017},
+  url     = {https://doi.org/10.48550/arXiv.1707.06347}
+}
+
+@article{mnih2015human,
+  title     = {Human-level control through deep reinforcement learning},
+  author    = {Mnih, Volodymyr and Kavukcuoglu, Koray and Silver, David and Rusu, Andrei A. and Veness, Joel and Bellemare, Marc G. and Graves, Alex and Riedmiller, Martin and Fidjeland, Andreas K. and Ostrovski, Georg and others},
+  journal   = {Nature},
+  volume    = {518},
+  number    = {7540},
+  pages     = {529--533},
+  year      = {2015},
+  publisher = {Nature Publishing Group},
+  url       = {https://doi.org/10.1038/nature14236}
+}
+
+@inproceedings{mnih2016asynchronous,
+  title     = {Asynchronous Methods for Deep Reinforcement Learning},
+  author    = {Mnih, Volodymyr and Badia, Adri{\`a} Puigdom{\`e}nech and Mirza, Mehdi and Graves, Alex and Lillicrap, Timothy and Harley, Tim and Silver, David and Kavukcuoglu, Koray},
+  booktitle = {Proc. 33rd Int. Conf. Machine Learning (ICML)},
+  pages     = {1928--1937},
+  year      = {2016},
+  url       = {https://doi.org/10.48550/arXiv.1602.01783}
+}
+
+@inproceedings{schulman2015trust,
+  title     = {Trust Region Policy Optimization},
+  author    = {Schulman, John and Levine, Sergey and Abbeel, Pieter and Jordan, Michael and Moritz, Philipp},
+  booktitle = {Proc. 32nd Int. Conf. Machine Learning (ICML)},
+  pages     = {1889--1897},
+  year      = {2015},
+  url       = {https://doi.org/10.48550/arXiv.1502.05477}
+}
+
+@inproceedings{schulman2016high,
+  title     = {High-Dimensional Continuous Control Using Generalized Advantage Estimation},
+  author    = {Schulman, John and Moritz, Philipp and Levine, Sergey and Jordan, Michael and Abbeel, Pieter},
+  booktitle = {Proc. Int. Conf. Learning Representations (ICLR)},
+  year      = {2016},
+  url       = {https://doi.org/10.48550/arXiv.1506.02438}
+}
+
+@inproceedings{lillicrap2016continuous,
+  title     = {Continuous control with deep reinforcement learning},
+  author    = {Lillicrap, Timothy P. and Hunt, Jonathan J. and Pritzel, Alexander and Heess, Nicolas and Erez, Tom and Tassa, Yuval and Silver, David and Wierstra, Daan},
+  booktitle = {Proc. Int. Conf. Learning Representations (ICLR)},
+  year      = {2016},
+  url       = {https://doi.org/10.48550/arXiv.1509.02971}
+}
+
+@inproceedings{haarnoja2018soft,
+  title     = {Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor},
+  author    = {Haarnoja, Tuomas and Zhou, Aurick and Abbeel, Pieter and Levine, Sergey},
+  booktitle = {Proc. 35th Int. Conf. Machine Learning (ICML)},
+  pages     = {1861--1870},
+  year      = {2018},
+  url       = {https://doi.org/10.48550/arXiv.1801.01290}
+}
+
+@inproceedings{engstrom2020implementation,
+  title     = {Implementation Matters in Deep RL: A Case Study on PPO and TRPO},
+  author    = {Engstrom, Logan and Ilyas, Andrew and Santurkar, Shibani and Tsipras, Dimitris and Janoos, Firdaus and Rudolph, Larry and Madry, Aleksander},
+  booktitle = {Proc. Int. Conf. Learning Representations (ICLR)},
+  year      = {2020},
+  url       = {https://doi.org/10.48550/arXiv.2005.12729}
+}
+
+@inproceedings{andrychowicz2021what,
+  title     = {What Matters for On-Policy Deep Actor-Critic Methods? A Large-Scale Study},
+  author    = {Andrychowicz, Marcin and Raichuk, Anton and Sta{\'n}czyk, Piotr and Orsini, Manu and Girgin, Sertan and Marinier, Rapha{\"e}l and Hussenot, L{\'e}onard and Geist, Matthieu and Pietquin, Olivier and Michalski, Marcin and others},
+  booktitle = {Proc. Int. Conf. Learning Representations (ICLR)},
+  year      = {2021},
+  url       = {https://doi.org/10.48550/arXiv.2006.05990}
+}
+
+% ---- Multi-agent RL -----------------------------------------------------------
+@inproceedings{foerster2018counterfactual,
+  title     = {Counterfactual Multi-Agent Policy Gradients},
+  author    = {Foerster, Jakob and Farquhar, Gregory and Afouras, Triantafyllos and Nardelli, Nantas and Whiteson, Shimon},
+  booktitle = {Proc. 32nd AAAI Conf. Artificial Intelligence},
+  pages     = {2974--2982},
+  year      = {2018},
+  url       = {https://doi.org/10.1609/aaai.v32i1.11794}
+}
+
+@inproceedings{lowe2017multi,
+  title     = {Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments},
+  author    = {Lowe, Ryan and Wu, Yi and Tamar, Aviv and Harb, Jean and Abbeel, Pieter and Mordatch, Igor},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {30},
+  year      = {2017},
+  url       = {https://doi.org/10.48550/arXiv.1706.02275}
+}
+
+@inproceedings{rashid2018qmix,
+  title     = {QMIX: Monotonic Value Function Factorisation for Deep Multi-Agent Reinforcement Learning},
+  author    = {Rashid, Tabish and Samvelyan, Mikayel and de Witt, Christian Schroeder and Farquhar, Gregory and Foerster, Jakob and Whiteson, Shimon},
+  booktitle = {Proc. 35th Int. Conf. Machine Learning (ICML)},
+  pages     = {4295--4304},
+  year      = {2018},
+  url       = {https://doi.org/10.48550/arXiv.1803.11485}
+}
+
+@inproceedings{sunehag2018value,
+  title     = {Value-Decomposition Networks For Cooperative Multi-Agent Learning Based On Team Reward},
+  author    = {Sunehag, Peter and Lever, Guy and Gruslys, Audrunas and Czarnecki, Wojciech Marian and Zambaldi, Vinicius and Jaderberg, Max and Lanctot, Marc and Sonnerat, Nicolas and Leibo, Joel Z. and Tuyls, Karl and Graepel, Thore},
+  booktitle = {Proc. 17th Int. Conf. Autonomous Agents and MultiAgent Systems (AAMAS)},
+  pages     = {2085--2087},
+  year      = {2018},
+  url       = {https://doi.org/10.48550/arXiv.1706.05296}
+}
+
+@inproceedings{yu2022surprising,
+  title     = {The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games},
+  author    = {Yu, Chao and Velu, Akash and Vinitsky, Eugene and Gao, Jiaxuan and Wang, Yu and Bayen, Alexandre and Wu, Yi},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS) Datasets and Benchmarks Track},
+  year      = {2022},
+  url       = {https://doi.org/10.48550/arXiv.2103.01955}
+}
+
+% ---- Classical / rule-based traffic signal control ----------------------------
+@article{varaiya2013max,
+  title     = {Max pressure control of a network of signalized intersections},
+  author    = {Varaiya, Pravin},
+  journal   = {Transportation Research Part C: Emerging Technologies},
+  volume    = {36},
+  pages     = {177--195},
+  year      = {2013},
+  publisher = {Elsevier},
+  url       = {https://doi.org/10.1016/j.trc.2013.08.014}
+}
+
+@incollection{cools2013self,
+  title     = {Self-Organizing Traffic Lights: A Realistic Simulation},
+  author    = {Cools, Seung-Bae and Gershenson, Carlos and D'Hooghe, Bart},
+  booktitle = {Advances in Applied Self-Organizing Systems},
+  pages     = {45--55},
+  year      = {2013},
+  publisher = {Springer},
+  url       = {https://doi.org/10.1007/978-1-4471-5113-5_3}
+}
+
+@article{abdulhai2003reinforcement,
+  title     = {Reinforcement Learning for True Adaptive Traffic Signal Control},
+  author    = {Abdulhai, Baher and Pringle, Rob and Karakoulas, Grigoris J.},
+  journal   = {ASCE Journal of Transportation Engineering},
+  volume    = {129},
+  number    = {3},
+  pages     = {278--285},
+  year      = {2003},
+  url       = {https://doi.org/10.1061/(ASCE)0733-947X(2003)129:3(278)}
+}
+
+@article{prashanth2011reinforcement,
+  title     = {Reinforcement Learning With Function Approximation for Traffic Signal Control},
+  author    = {Prashanth, L. A. and Bhatnagar, Shalabh},
+  journal   = {IEEE Transactions on Intelligent Transportation Systems},
+  volume    = {12},
+  number    = {2},
+  pages     = {412--421},
+  year      = {2011},
+  url       = {https://doi.org/10.1109/TITS.2010.2091408}
+}
+
+@article{eltantawy2013multiagent,
+  title     = {Multiagent Reinforcement Learning for Integrated Network of Adaptive Traffic Signal Controllers (MARLIN-ATSC): Methodology and Large-Scale Application on Downtown Toronto},
+  author    = {El-Tantawy, Samah and Abdulhai, Baher and Abdelgawad, Hossam},
+  journal   = {IEEE Transactions on Intelligent Transportation Systems},
+  volume    = {14},
+  number    = {3},
+  pages     = {1140--1150},
+  year      = {2013},
+  url       = {https://doi.org/10.1109/TITS.2013.2255286}
+}
+
+@article{aslani2017adaptive,
+  title     = {Adaptive traffic signal control with actor-critic methods in a real-world traffic network with different traffic disruption events},
+  author    = {Aslani, Mohammad and Mesgari, Mohammad Saadi and Wiering, Marco},
+  journal   = {Transportation Research Part C: Emerging Technologies},
+  volume    = {85},
+  pages     = {732--752},
+  year      = {2017},
+  publisher = {Elsevier},
+  url       = {https://doi.org/10.1016/j.trc.2017.09.020}
+}
+
+@incollection{mannion2016experimental,
+  title     = {An Experimental Review of Reinforcement Learning Algorithms for Adaptive Traffic Signal Control},
+  author    = {Mannion, Patrick and Duggan, Jim and Howley, Enda},
+  booktitle = {Autonomic Road Transport Support Systems},
+  pages     = {47--66},
+  year      = {2016},
+  publisher = {Springer},
+  url       = {https://doi.org/10.1007/978-3-319-25808-9_4}
+}
+
+% ---- Deep RL traffic signal control (modern) ----------------------------------
+@article{genders2016using,
+  title   = {Using a Deep Reinforcement Learning Agent for Traffic Signal Control},
+  author  = {Genders, Wade and Razavi, Saiedeh},
+  journal = {arXiv preprint arXiv:1611.01142},
+  year    = {2016},
+  url     = {https://doi.org/10.48550/arXiv.1611.01142}
+}
+
+@inproceedings{wei2018intellilight,
+  title     = {IntelliLight: A Reinforcement Learning Approach for Intelligent Traffic Light Control},
+  author    = {Wei, Hua and Zheng, Guanjie and Yao, Huaxiu and Li, Zhenhui},
+  booktitle = {Proc. 24th ACM SIGKDD Int. Conf. Knowledge Discovery and Data Mining (KDD)},
+  pages     = {2496--2505},
+  year      = {2018},
+  url       = {https://doi.org/10.1145/3219819.3220096}
+}
+
+@inproceedings{wei2019presslight,
+  title     = {PressLight: Learning Max Pressure Control to Coordinate Traffic Signals in Arterial Network},
+  author    = {Wei, Hua and Chen, Chacha and Zheng, Guanjie and Wu, Kan and Gayah, Vikash and Xu, Kai and Li, Zhenhui},
+  booktitle = {Proc. 25th ACM SIGKDD Int. Conf. Knowledge Discovery and Data Mining (KDD)},
+  pages     = {1290--1298},
+  year      = {2019},
+  url       = {https://doi.org/10.1145/3292500.3330949}
+}
+
+@inproceedings{wei2019colight,
+  title     = {CoLight: Learning Network-level Cooperation for Traffic Signal Control},
+  author    = {Wei, Hua and Xu, Nan and Zhang, Huichu and Zheng, Guanjie and Zang, Xinshi and Chen, Chacha and Zhang, Weinan and Zhu, Yanmin and Xu, Kai and Li, Zhenhui},
+  booktitle = {Proc. 28th ACM Int. Conf. Information and Knowledge Management (CIKM)},
+  pages     = {1913--1922},
+  year      = {2019},
+  url       = {https://doi.org/10.1145/3357384.3357902}
+}
+
+@inproceedings{zheng2019learning,
+  title     = {Learning Phase Competition for Traffic Signal Control},
+  author    = {Zheng, Guanjie and Xiong, Yuanhao and Zang, Xinshi and Feng, Jie and Wei, Hua and Zhang, Huichu and Li, Yong and Xu, Kai and Li, Zhenhui},
+  booktitle = {Proc. 28th ACM Int. Conf. Information and Knowledge Management (CIKM)},
+  pages     = {1963--1972},
+  year      = {2019},
+  url       = {https://doi.org/10.1145/3357384.3357900}
+}
+
+@inproceedings{chen2020toward,
+  title     = {Toward A Thousand Lights: Decentralized Deep Reinforcement Learning for Large-Scale Traffic Signal Control},
+  author    = {Chen, Chacha and Wei, Hua and Xu, Nan and Zheng, Guanjie and Yang, Ming and Xiong, Yuanhao and Xu, Kai and Li, Zhenhui},
+  booktitle = {Proc. 34th AAAI Conf. Artificial Intelligence},
+  pages     = {3414--3421},
+  year      = {2020},
+  url       = {https://doi.org/10.1609/aaai.v34i04.5744}
+}
+
+@article{chu2019multi,
+  title   = {Multi-Agent Deep Reinforcement Learning for Large-Scale Traffic Signal Control},
+  author  = {Chu, Tianshu and Wang, Jie and Codec{\`a}, Lara and Li, Zhaojian},
+  journal = {IEEE Transactions on Intelligent Transportation Systems},
+  volume  = {21},
+  number  = {3},
+  pages   = {1086--1095},
+  year    = {2019},
+  url     = {https://doi.org/10.1109/TITS.2019.2901791}
+}
+
+@inproceedings{nishi2018traffic,
+  title     = {Traffic Signal Control Based on Reinforcement Learning with Graph Convolutional Neural Nets},
+  author    = {Nishi, Tomoki and Otaki, Keisuke and Hayakawa, Keiichiro and Yoshimura, Takayoshi},
+  booktitle = {Proc. 21st IEEE Int. Conf. Intelligent Transportation Systems (ITSC)},
+  pages     = {877--883},
+  year      = {2018},
+  url       = {https://doi.org/10.1109/ITSC.2018.8569301}
+}
+
+@inproceedings{oroojlooy2020attendlight,
+  title     = {AttendLight: Universal Attention-Based Reinforcement Learning Model for Traffic Signal Control},
+  author    = {Oroojlooy, Afshin and Nazari, Mohammadreza and Hajinezhad, Davood and Silva, Jorge},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {33},
+  pages     = {4079--4090},
+  year      = {2020},
+  url       = {https://doi.org/10.48550/arXiv.2010.05772}
+}
+
+@inproceedings{zang2020metalight,
+  title     = {MetaLight: Value-Based Meta-Reinforcement Learning for Traffic Signal Control},
+  author    = {Zang, Xinshi and Yao, Huaxiu and Zheng, Guanjie and Xu, Nan and Xu, Kai and Li, Zhenhui},
+  booktitle = {Proc. 34th AAAI Conf. Artificial Intelligence},
+  pages     = {1153--1160},
+  year      = {2020},
+  url       = {https://doi.org/10.1609/aaai.v34i01.5467}
+}
+
+@article{devailly2021ig,
+  title   = {IG-RL: Inductive Graph Reinforcement Learning for Massive-Scale Traffic Signal Control},
+  author  = {Devailly, Fran{\c{c}}ois-Xavier and Larocque, Denis and Charlin, Laurent},
+  journal = {IEEE Transactions on Intelligent Transportation Systems},
+  volume  = {23},
+  number  = {7},
+  pages   = {7496--7507},
+  year    = {2021},
+  url     = {https://doi.org/10.1109/TITS.2021.3070835}
+}
+
+% ---- Surveys ------------------------------------------------------------------
+@article{wei2019survey,
+  title   = {A Survey on Traffic Signal Control Methods},
+  author  = {Wei, Hua and Zheng, Guanjie and Gayah, Vikash and Li, Zhenhui},
+  journal = {arXiv preprint arXiv:1904.08117},
+  year    = {2019},
+  url     = {https://doi.org/10.48550/arXiv.1904.08117}
+}
+
+@article{haydari2020deep,
+  title   = {Deep Reinforcement Learning for Intelligent Transportation Systems: A Survey},
+  author  = {Haydari, Ammar and Yilmaz, Yasin},
+  journal = {IEEE Transactions on Intelligent Transportation Systems},
+  volume  = {23},
+  number  = {1},
+  pages   = {11--32},
+  year    = {2020},
+  url     = {https://doi.org/10.1109/TITS.2020.3008612}
+}
+
+@article{yau2017survey,
+  title     = {A Survey on Reinforcement Learning Models and Algorithms for Traffic Signal Control},
+  author    = {Yau, Kok-Lim Alvin and Qadir, Junaid and Khoo, Hooi Ling and Ling, Mee Hong and Komisarczuk, Peter},
+  journal   = {ACM Computing Surveys},
+  volume    = {50},
+  number    = {3},
+  pages     = {1--38},
+  year      = {2017},
+  publisher = {ACM},
+  url       = {https://doi.org/10.1145/3068287}
+}
+
+@article{noaeen2022reinforcement,
+  title     = {Reinforcement learning in urban network traffic signal control: A systematic literature review},
+  author    = {Noaeen, Mohammad and Naik, Atharva and Goodman, Liana and Crebo, Jared and Abrar, Taimoor and Abad, Zahra Shakeri Hossein and Bazzan, Ana L. C. and Far, Behrouz},
+  journal   = {Expert Systems with Applications},
+  volume    = {199},
+  pages     = {116830},
+  year      = {2022},
+  publisher = {Elsevier},
+  url       = {https://doi.org/10.1016/j.eswa.2022.116830}
+}
+
+% ---- Simulators / benchmarks / tooling ----------------------------------------
+@inproceedings{lopez2018microscopic,
+  title     = {Microscopic Traffic Simulation using SUMO},
+  author    = {Lopez, Pablo Alvarez and Behrisch, Michael and Bieker-Walz, Laura and Erdmann, Jakob and Fl{\"o}tter{\"o}d, Yun-Pang and Hilbrich, Robert and L{\"u}cken, Leonhard and Rummel, Johannes and Wagner, Peter and Wie{\ss}ner, Evamarie},
+  booktitle = {Proc. 21st IEEE Int. Conf. Intelligent Transportation Systems (ITSC)},
+  pages     = {2575--2582},
+  year      = {2018},
+  url       = {https://doi.org/10.1109/ITSC.2018.8569938}
+}
+
+@inproceedings{zhang2019cityflow,
+  title     = {CityFlow: A Multi-Agent Reinforcement Learning Environment for Large Scale City Traffic Scenario},
+  author    = {Zhang, Huichu and Feng, Siyuan and Liu, Chang and Ding, Yaoyao and Zhu, Yichen and Zhou, Zihan and Zhang, Weinan and Yu, Yong and Jin, Haiming and Li, Zhenhui},
+  booktitle = {Proc. World Wide Web Conference (WWW)},
+  pages     = {3620--3624},
+  year      = {2019},
+  url       = {https://doi.org/10.1145/3308558.3314139}
+}
+
+@article{brockman2016openai,
+  title   = {OpenAI Gym},
+  author  = {Brockman, Greg and Cheung, Vicki and Pettersson, Ludwig and Schneider, Jonas and Schulman, John and Tang, Jie and Zaremba, Wojciech},
+  journal = {arXiv preprint arXiv:1606.01540},
+  year    = {2016},
+  url     = {https://doi.org/10.48550/arXiv.1606.01540}
+}
+
+@misc{towers2023gymnasium,
+  title        = {Gymnasium},
+  author       = {Towers, Mark and Terry, Jordan K. and Kwiatkowski, Ariel and Balis, John U. and de Cola, Gianluca and Deleu, Tristan and Goul{\~a}o, Manuel and Kallinteris, Andreas and KG, Arjun and Krimmel, Markus and others},
+  howpublished = {Zenodo},
+  year         = {2023},
+  url          = {https://doi.org/10.5281/zenodo.8127026}
+}
+
+@article{wu2021flow,
+  title   = {Flow: A Modular Learning Framework for Mixed Autonomy Traffic},
+  author  = {Wu, Cathy and Kreidieh, Aboudy R. and Parvate, Kanaad and Vinitsky, Eugene and Bayen, Alexandre M.},
+  journal = {IEEE Transactions on Robotics},
+  volume  = {38},
+  number  = {2},
+  pages   = {1270--1286},
+  year    = {2021},
+  url     = {https://doi.org/10.1109/TRO.2021.3087314}
+}
+
+@inproceedings{lobo2020intas,
+  title     = {InTAS -- The Ingolstadt Traffic Scenario for SUMO},
+  author    = {Lobo, Silas C. and Neumeier, Stefan and Fernandez, Evelio M. G. and Facchi, Christian},
+  booktitle = {SUMO User Conference 2020},
+  year      = {2020},
+  url       = {https://doi.org/10.48550/arXiv.2011.11995}
+}
+
+@inproceedings{codeca2015luxembourg,
+  title     = {Luxembourg SUMO Traffic (LuST) Scenario: 24 Hours of Mobility for Vehicular Networking Research},
+  author    = {Codec{\`a}, Lara and Frank, Raphael and Engel, Thomas},
+  booktitle = {Proc. IEEE Vehicular Networking Conference (VNC)},
+  pages     = {1--8},
+  year      = {2015},
+  url       = {https://doi.org/10.1109/VNC.2015.7385539}
+}
+
+% ---- Robustness / generalisation ----------------------------------------------
+@inproceedings{zhang2020generalight,
+  title     = {GeneraLight: Improving Environment Generalization of Traffic Signal Control via Meta Reinforcement Learning},
+  author    = {Zhang, Huichu and Liu, Chang and Zhang, Weinan and Zheng, Guanjie and Yu, Yong},
+  booktitle = {Proc. 29th ACM Int. Conf. Information and Knowledge Management (CIKM)},
+  pages     = {1783--1792},
+  year      = {2020},
+  url       = {https://doi.org/10.1145/3340531.3411859}
+}
+
+@inproceedings{rizzo2019reinforcement,
+  title     = {Reinforcement Learning with Explainability for Traffic Signal Control},
+  author    = {Rizzo, Stefano Giovanni and Vantini, Giovanna and Chawla, Sanjay},
+  booktitle = {Proc. 22nd IEEE Int. Conf. Intelligent Transportation Systems (ITSC)},
+  pages     = {3567--3572},
+  year      = {2019},
+  url       = {https://doi.org/10.1109/ITSC.2019.8917519}
+}
+
+% ---- Recent SOTA (2025-2026) --------------------------------------------------
+@article{nguyen2025robustness,
+  title   = {Robustness of Reinforcement Learning-Based Traffic Signal Control under Incidents: A Comparative Study},
+  author  = {Nguyen, Dang Viet Anh and Lima Azevedo, Carlos and Toledo, Tomer and Rodrigues, Filipe},
+  journal = {arXiv preprint arXiv:2506.13836},
+  year    = {2025},
+  url     = {https://doi.org/10.48550/arXiv.2506.13836}
+}
+
+@article{mahato2025smart,
+  title   = {Smart Traffic Signals: Comparing MARL and Fixed-Time Strategies},
+  author  = {Mahato, Saahil},
+  journal = {arXiv preprint arXiv:2505.14544},
+  year    = {2025},
+  url     = {https://doi.org/10.48550/arXiv.2505.14544}
+}
+
+@article{kwesiga2025adaptive,
+  title   = {Adaptive Traffic Signal Control based on Multi-Agent Reinforcement Learning. Case Study on a Simulated Real-World Corridor},
+  author  = {Kwesiga, Dickness Kakitahi and Guin, Angshuman and Hunter, Michael},
+  journal = {arXiv preprint arXiv:2503.02189},
+  year    = {2025},
+  url     = {https://doi.org/10.48550/arXiv.2503.02189}
+}
+
+@article{huang2026robust,
+  title   = {A Robust and Efficient Multi-Agent Reinforcement Learning Framework for Traffic Signal Control},
+  author  = {Huang, Sheng-You and Chang, Hsiao-Chuan and Chen, Yen-Chi and Wei, Ting-Han and Yeh, I-Hau and Kuan, Sheng-Yao and Wang, Chien-Yao and Lee, Hsuan-Han and Wu, I-Chen},
+  journal = {arXiv preprint arXiv:2603.12096},
+  year    = {2026},
+  url     = {https://doi.org/10.48550/arXiv.2603.12096}
+}
+
+@article{deng2026adaptive,
+  title   = {Adaptive traffic signal control optimization using a novel road partition and multi-channel state representation method},
+  author  = {Deng, Maojiang and Lu, Shoufeng and Shi, Jiazhao and Zhang, Wen},
+  journal = {arXiv preprint arXiv:2602.12296},
+  year    = {2026},
+  url     = {https://doi.org/10.48550/arXiv.2602.12296}
+}
+
+@article{huang2023improving,
+  title     = {Improving traffic signal control operations using proximal policy optimization},
+  author    = {Huang, Lei and Qu, Xu},
+  journal   = {IET Intelligent Transport Systems},
+  volume    = {17},
+  number    = {7},
+  pages     = {1366--1380},
+  year      = {2023},
+  publisher = {Wiley},
+  url       = {https://doi.org/10.1049/itr2.12286}
+}

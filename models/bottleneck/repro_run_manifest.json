@@ -1,0 +1,24 @@
+{
+  "created_utc": "2026-05-29T14:25:30.061388+00:00",
+  "python": "3.12.3",
+  "platform": "linux",
+  "training_seed": 42,
+  "sumo_seeds_subproc": [
+    42,
+    43,
+    44,
+    45
+  ],
+  "n_envs": 4,
+  "total_timesteps": 400000,
+  "resume_from": null,
+  "device": "cuda",
+  "torch": "2.11.0+cu128",
+  "stable_baselines3": "2.8.0",
+  "sumo_cli_version": "Eclipse SUMO sumo Version 1.18.0",
+  "extra": {
+    "scenario": "bottleneck",
+    "b0": 0.0,
+    "b2_steps": 200
+  }
+}

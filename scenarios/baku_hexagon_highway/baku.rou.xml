@@ -1,6 +1,12 @@
 <routes>
         <vType id="car" accel="2.6" decel="4.5" length="5" maxSpeed="13.89" color="yellow"/>
-        <flow id="f1" type="car" begin="0" end="3600" vehsPerHour="600" from="Ext1_to_Int1" to="Ext3_to_Sink3" via="BP_1_3"/>
-        <flow id="f2" type="car" begin="0" end="3600" vehsPerHour="600" from="Ext6_to_Int6" to="Ext4_to_Sink4" via="BP_6_4"/>
-        <flow id="f3" type="car" begin="0" end="3600" vehsPerHour="800" from="Ext2_to_Int2" to="Ext5_to_Sink5"/>
+        <!-- Demand recalibrated 2026-05-29 (PLAN.md R5). At 2000 veh/h the 12-TL
+             net was only lightly loaded (mean queue ~33, throughput below the ~810
+             capacity). Measured knee: queue 33/139 at 1.0/2.0 of old demand
+             (saturates ~q140 beyond 2.0). Scaled to 1.3 (~2600 veh/h, ~q50): real
+             congestion while staying under capacity — kept moderate on purpose so
+             the 12-agent coordination problem stays learnable, not gridlock-prone. -->
+        <flow id="f1" type="car" begin="0" end="3600" vehsPerHour="780" from="Ext1_to_Int1" to="Ext3_to_Sink3" via="BP_1_3"/>
+        <flow id="f2" type="car" begin="0" end="3600" vehsPerHour="780" from="Ext6_to_Int6" to="Ext4_to_Sink4" via="BP_6_4"/>
+        <flow id="f3" type="car" begin="0" end="3600" vehsPerHour="1040" from="Ext2_to_Int2" to="Ext5_to_Sink5"/>
     </routes>

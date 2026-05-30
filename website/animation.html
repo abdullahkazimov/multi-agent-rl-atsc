@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traffic Animation — MARL-ATSC Baku</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .anim-page { padding: 24px 0 64px; }
+
+    /* ── Controls bar ── */
+    .anim-controls {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      padding: 14px 18px; margin-bottom: 14px;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-lg);
+    }
+    .ctrl-group { display: flex; align-items: center; gap: 6px; }
+    .ctrl-label { font-size: 11px; color: var(--txt-3); text-transform: uppercase; letter-spacing:.05em; white-space:nowrap; }
+    .ctrl-select {
+      background: var(--bg-input); border: 1px solid var(--border); color: var(--txt);
+      padding: 7px 10px; border-radius: var(--r-md); font-size: 13px; font-family: var(--font); cursor: pointer;
+    }
+    .ctrl-sep { width:1px; height:22px; background: var(--border); margin: 0 4px; flex-shrink:0; }
+    .ctrl-btn {
+      background: var(--bg-elevated); border: 1px solid var(--border); color: var(--txt-2);
+      padding: 7px 13px; border-radius: var(--r-md); font-size: 14px; cursor: pointer;
+      transition: all .15s; white-space:nowrap;
+    }
+    .ctrl-btn:hover  { border-color: var(--border-hi); color: var(--txt); }
+    .ctrl-btn.active { background: var(--green); border-color: var(--green); color: #fff; }
+    .ctrl-btn.play-btn { font-size: 18px; padding: 7px 16px; }
+    .ctrl-step {
+      margin-left: auto; font-family: var(--mono); font-size: 13px; color: var(--txt-2); white-space:nowrap;
+    }
+    .ctrl-step .t { color: var(--txt); font-weight: 700; }
+
+    /* ── Side-by-side panels ── */
+    .anim-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    @media (max-width: 900px) { .anim-panels { grid-template-columns: 1fr; } }
+
+    .anim-panel {
+      background: var(--bg-card); border-radius: var(--r-xl); overflow: hidden;
+      border: 1px solid var(--border); display: flex; flex-direction: column;
+    }
+    .anim-panel.ft-panel { border-top: 2px solid rgba(249,115,22,.5); }
+    .anim-panel.rl-panel { border-top: 2px solid rgba(16,185,129,.5); }
+
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    .ph-title { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .ph-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .ft-dot { background: var(--orange); }
+    .rl-dot { background: var(--green); box-shadow: 0 0 6px rgba(16,185,129,.6); }
+    .ph-live {
+      font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 999px;
+      background: var(--green-dim); color: var(--green); letter-spacing:.04em;
+    }
+    .ph-metrics { display: flex; gap: 10px; }
+    .ph-m { font-size: 11px; font-family: var(--mono); color: var(--txt-3); }
+    .ph-m .v { font-weight: 700; color: var(--txt); }
+
+    .panel-canvas-wrap { position: relative; flex: 1; min-height: 320px; }
+    .anim-canvas { width: 100%; height: 100%; display: block; }
+
+    /* warmup dim overlay — handled in JS */
+
+    /* ── Scrubber ── */
+    .scrubber-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 14px 20px; margin-bottom: 12px;
+    }
+    .scrubber-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .scrubber-label { font-size: 12px; color: var(--txt-2); }
+    .scrubber-time  { font-size: 12px; font-family: var(--mono); color: var(--txt-3); }
+    .scrubber-track { position: relative; height: 6px; background: var(--bg-elevated); border-radius: 3px; margin-bottom: 6px; }
+    .scrubber-fill  { position: absolute; left:0; top:0; bottom:0; background: var(--grad); border-radius: 3px; pointer-events:none; transition: width .05s; }
+    .scrubber-warmup-mark {
+      position: absolute; top: -6px; bottom: -6px; width: 2px;
+      background: rgba(255,255,255,.4); border-radius: 1px; pointer-events:none;
+    }
+    .scrubber-input {
+      position: absolute; inset: -8px 0; width: 100%; opacity: 0; cursor: pointer; margin:0;
+      height: calc(100% + 16px);
+    }
+    .scrubber-footer { display: flex; justify-content: space-between; font-size: 10px; color: var(--txt-3); }
+
+    /* ── Highlight toast ── */
+    .highlight-toast {
+      position: fixed; top: 72px; left: 50%; transform: translateX(-50%) translateY(-12px);
+      z-index: 500; pointer-events: none; width: 420px; max-width: 92vw;
+      opacity: 0; transition: opacity .3s ease, transform .3s ease;
+    }
+    .highlight-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .ht-inner {
+      background: var(--bg-elevated);
+      border: 1px solid rgba(16,185,129,.4);
+      border-radius: var(--r-xl); padding: 16px 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.7), 0 0 0 1px rgba(16,185,129,.1);
+    }
+    .ht-title {
+      font-size: 11px; color: var(--txt-3); text-transform: uppercase; letter-spacing:.07em;
+      margin-bottom: 10px; display: flex; justify-content: space-between;
+    }
+    .ht-sim-time { color: var(--green); font-weight: 700; }
+    .ht-rows { display: flex; flex-direction: column; gap: 6px; }
+    .ht-row  { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+    .ht-metric { color: var(--txt-2); min-width: 95px; }
+    .ht-ft   { color: var(--orange); font-family: var(--mono); }
+    .ht-sep  { color: var(--txt-3); }
+    .ht-rl   { color: var(--green);  font-family: var(--mono); }
+    .ht-pct  { margin-left: auto; font-weight: 800; font-size: 14px; }
+    .ht-pct.pos { color: var(--green); }
+    .ht-pct.neg { color: var(--red); }
+    .ht-bar  { height: 3px; border-radius: 2px; background: var(--grad); margin-top: 10px; }
+
+    /* ── Highlight log ── */
+    .log-section {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-xl); padding: 22px;
+    }
+    .log-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .log-header h3 { font-size: 15px; font-weight: 700; }
+    .log-sub { font-size: 12px; color: var(--txt-3); }
+    .log-scroll { max-height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
+    .log-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 12px; border-radius: var(--r-md);
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      font-size: 12px; cursor: pointer; transition: border-color .15s;
+    }
+    .log-item:hover { border-color: var(--border-hi); }
+    .log-item.current { border-color: rgba(16,185,129,.4); background: var(--green-dim); }
+    .log-step { font-family: var(--mono); color: var(--txt-2); min-width: 60px; }
+    .log-badge { padding: 2px 8px; border-radius: 999px; font-weight: 700; font-size: 11px; background: var(--green-dim); color: var(--green); white-space:nowrap; }
+    .log-badge.minor { background: var(--orange-dim); color: var(--orange); }
+    .log-desc { color: var(--txt-2); flex: 1; }
+    .log-time { color: var(--txt-3); font-size: 11px; font-family: var(--mono); white-space:nowrap; }
+    .log-empty { text-align: center; padding: 24px; color: var(--txt-3); font-size: 13px; }
+
+    /* ── Legend ── */
+    .network-legend {
+      display: flex; gap: 16px; padding: 8px 16px; border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .nl-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--txt-3); }
+    .nl-dot  { width: 10px; height: 10px; border-radius: 50%; }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <div class="nav-logo">
+      <div class="dot">RL</div>
+      <a href="index.html" style="color:inherit;text-decoration:none">MARL-ATSC Baku</a>
+    </div>
+    <div class="nav-links">
+      <a href="index.html#scenarios">Scenarios</a>
+      <a href="index.html#results">Results</a>
+      <a href="animation.html" style="color:var(--green)">Animation</a>
+      <a href="index.html#methodology">Methodology</a>
+    </div>
+  </div>
+</nav>
+
+<div class="anim-page">
+<div class="container">
+
+  <!-- ── Page header ─────────────────────────────────────────────────── -->
+  <div style="margin-bottom:20px">
+    <div style="font-size:11px;color:var(--txt-3);margin-bottom:8px">
+      <a href="index.html" style="color:var(--txt-2)">← All Scenarios</a>
+    </div>
+    <h1 style="font-size:clamp(20px,3vw,28px);font-weight:800;margin-bottom:6px">
+      Traffic Flow Animation
+    </h1>
+    <p style="font-size:14px;color:var(--txt-2);max-width:640px">
+      Step-by-step replay of SUMO simulations.  Each node is coloured by congestion level
+      — <span style="color:#10b981">green = free flow</span>,
+      <span style="color:#ef4444">red = congested</span>.
+      Bubbles appear at moments where the RL agent significantly reduces waiting time.
+    </p>
+  </div>
+
+  <!-- ── Controls ────────────────────────────────────────────────────── -->
+  <div class="anim-controls">
+    <div class="ctrl-group">
+      <span class="ctrl-label">Scenario</span>
+      <select class="ctrl-select" id="sc-select">
+        <option value="bottleneck">Bottleneck (2 TLs)</option>
+        <option value="main" selected>Main Arterial (3 TLs)</option>
+        <option value="pedestrian">Pedestrian (1 TL)</option>
+        <option value="hexagon">Hexagon (12 TLs)</option>
+      </select>
+    </div>
+    <div class="ctrl-group">
+      <span class="ctrl-label">Seed</span>
+      <select class="ctrl-select" id="seed-select"></select>
+    </div>
+    <div class="ctrl-sep"></div>
+    <button class="ctrl-btn" id="btn-prev" title="Previous 10 steps">⏮</button>
+    <button class="ctrl-btn play-btn" id="btn-play" title="Play / Pause">▶</button>
+    <button class="ctrl-btn" id="btn-next" title="Next 10 steps">⏭</button>
+    <div class="ctrl-sep"></div>
+    <div class="ctrl-group">
+      <span class="ctrl-label">Speed</span>
+      <button class="ctrl-btn" data-speed="0.5">½×</button>
+      <button class="ctrl-btn active" data-speed="1">1×</button>
+      <button class="ctrl-btn" data-speed="2">2×</button>
+      <button class="ctrl-btn" data-speed="5">5×</button>
+    </div>
+    <div class="ctrl-step">
+      Step <span class="t" id="step-num">0</span> / <span id="step-total">300</span>
+      &nbsp;·&nbsp; <span id="sim-time">0s</span> simulated
+    </div>
+  </div>
+
+  <!-- ── Panels ──────────────────────────────────────────────────────── -->
+  <div class="anim-panels">
+    <!-- Fixed-Time -->
+    <div class="anim-panel ft-panel">
+      <div class="panel-header">
+        <div class="ph-title">
+          <div class="ph-dot ft-dot"></div>
+          Fixed-Time Control
+        </div>
+        <div class="ph-metrics" id="ft-metrics"></div>
+        <span class="ph-m" style="margin-left:4px;color:var(--orange)">🚗 <span id="ft-veh-count">—</span></span>
+      </div>
+      <div class="panel-canvas-wrap" id="ft-wrap">
+        <canvas class="anim-canvas" id="canvas-ft"></canvas>
+      </div>
+      <div class="network-legend">
+        <div class="nl-item"><div class="nl-dot" style="background:#10b981"></div>Free flow</div>
+        <div class="nl-item"><div class="nl-dot" style="background:#f59e0b"></div>Moderate</div>
+        <div class="nl-item"><div class="nl-dot" style="background:#ef4444"></div>Congested</div>
+        <div class="nl-item" style="margin-left:auto;color:var(--orange)">▪ vehicles queued</div>
+      </div>
+    </div>
+
+    <!-- RL / PPO -->
+    <div class="anim-panel rl-panel">
+      <div class="panel-header">
+        <div class="ph-title">
+          <div class="ph-dot rl-dot"></div>
+          PPO — RL Control
+          <span class="ph-live">BEST</span>
+        </div>
+        <div class="ph-metrics" id="rl-metrics"></div>
+        <span class="ph-m" style="margin-left:4px;color:var(--green)">🚗 <span id="rl-veh-count">—</span></span>
+      </div>
+      <div class="panel-canvas-wrap" id="rl-wrap">
+        <canvas class="anim-canvas" id="canvas-rl"></canvas>
+      </div>
+      <div class="network-legend">
+        <div class="nl-item"><div class="nl-dot" style="background:#10b981"></div>Free flow</div>
+        <div class="nl-item"><div class="nl-dot" style="background:#f59e0b"></div>Moderate</div>
+        <div class="nl-item"><div class="nl-dot" style="background:#ef4444"></div>Congested</div>
+        <div class="nl-item" style="margin-left:auto;color:var(--green)">▪ active phase</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Scrubber ────────────────────────────────────────────────────── -->
+  <div class="scrubber-card">
+    <div class="scrubber-top">
+      <span class="scrubber-label">Timeline — drag to scrub</span>
+      <span class="scrubber-time" id="scrubber-time">Step 0 of 300 · 0s simulated</span>
+    </div>
+    <div class="scrubber-track" id="scrubber-track">
+      <div class="scrubber-fill" id="scrubber-fill"></div>
+      <div class="scrubber-warmup-mark" id="warmup-mark"></div>
+      <input type="range" class="scrubber-input" id="scrubber" min="0" max="299" value="0" step="1">
+    </div>
+    <div class="scrubber-footer">
+      <span>Step 0</span>
+      <span id="warmup-label" style="color:rgba(255,255,255,.35)">▲ warmup ends</span>
+      <span id="step-end">Step 300</span>
+    </div>
+  </div>
+
+  <!-- ── Highlight log ───────────────────────────────────────────────── -->
+  <div class="log-section">
+    <div class="log-header">
+      <div>
+        <h3>⚡ Significant RL Improvements</h3>
+        <div class="log-sub">Steps where RL reduced waiting time by ≥ 40% vs fixed-time. Click to jump.</div>
+      </div>
+      <div id="log-count" style="font-size:13px;color:var(--txt-3)"></div>
+    </div>
+    <div class="log-scroll" id="log-list">
+      <div class="log-empty">Loading data…</div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+</div><!-- /anim-page -->
+
+<!-- ── Highlight toast ─────────────────────────────────────────────────── -->
+<div class="highlight-toast" id="hl-toast">
+  <div class="ht-inner">
+    <div class="ht-title">
+      <span>⚡ RL Advantage Moment</span>
+      <span class="ht-sim-time" id="ht-simtime"></span>
+    </div>
+    <div class="ht-rows" id="ht-rows"></div>
+    <div class="ht-bar" id="ht-bar"></div>
+  </div>
+</div>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <p>MARL-ATSC Baku — Abdullah Kazimov, ADA University, 2026</p>
+  </div>
+</footer>
+
+<script src="assets/animation.js"></script>
+</body>
+</html>

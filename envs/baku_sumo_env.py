@@ -8,9 +8,10 @@ Design (thesis §3.2 – §3.4):
   • Decision interval : 10 simulated seconds
   • Yellow clearance  : 3 simulated seconds (inserted on phase switch)
   • Min phase hold    : 3 decision steps (≥ 30 s)
-  • Observation       : 12-slot × 13-value flat vector (full, 156-dim)
+  • Observation       : 12-slot × 14-value flat vector (full, 168-dim)
   • Action            : MultiDiscrete — one green-phase index per TL
-  • Reward            : 7-term composite (thesis Eq. 1)
+                        (+ optional all-red metering action via meter_tls)
+  • Reward            : 8-term composite (thesis Eq. 1 + pedestrian term)
 """
 
 import os
@@ -35,22 +36,37 @@ class BakuSUMOEnv(gym.Env):
 
     # ── Observation layout ───────────────────────────────────────────────
     MAX_LANES           = 10    # lane ratio slots per TL
-    OBS_PER_TL          = 13    # lane ratios (10) + phase_norm + steps_norm + starvation_norm
+    OBS_PER_TL          = 14    # lane ratios (10) + phase + steps + starvation + ped_pressure
     MAX_TLS             = 12    # full observation covers 12 TL slots
-    OBS_DIM             = MAX_TLS * OBS_PER_TL          # 156
-    STARVATION_MAX_STEPS = 15   # phases unserved beyond this are penalised
+    OBS_DIM             = MAX_TLS * OBS_PER_TL          # 168
+    STARVATION_MAX_STEPS = 10   # phases unserved beyond this are penalised (lowered
+                                #   2026-05-29 so cross-street starvation bites sooner)
 
     # ── Reward weights (thesis Eq. 1) ────────────────────────────────────
     BETA_TP = 0.15   # throughput increment
     BETA_SR = 0.30   # mean stopped-vehicle ratio
     BETA_WT = 0.55   # mean waiting time (primary target)
     BETA_QL = 0.12   # mean queue length
-    BETA_LC = 0.25   # hotspot — worst-TL stopped ratio
+    BETA_LC = 0.60   # hotspot — worst-TL stopped ratio (raised 2026-05-29: directly
+                     #   penalises a fully-jammed/starved approach on multi-junction nets)
     BETA_CC = 0.10   # MARL coordination balance penalty
-    BETA_ST = 0.08   # phase starvation score
-    BETA_SW = 0.05   # switching cost (phase chatter prevention)
-    D_W     = 35.0   # waiting-time normaliser (seconds)
+    BETA_ST = 1.00   # phase-starvation score (raised 2026-05-29 to break phase-lock)
+    BETA_SW = 0.00   # switching cost disabled (was preventing exploration)
+    D_W     = 100.0  # waiting-time normaliser increased to dampen outlier penalties
     D_Q     = 10.0   # queue-length normaliser (vehicles)
+    BETA_PED      = 0.50   # pedestrian-waiting penalty (active only where persons exist)
+    PED_WAIT_NORM = 20.0   # persons-stopped-at-crossing normaliser
+
+    # Gridlock guard (added 2026-05-29): end the episode with a penalty if the
+    # network is jammed (≥ GRIDLOCK_MIN_VEH present but < 1 completing) for
+    # GRIDLOCK_PATIENCE consecutive decision steps. Stops phase-lock trajectories
+    # from poisoning the value function with a long all-bad tail.
+    GRIDLOCK_MIN_VEH   = 30
+    GRIDLOCK_MIN_QUEUE = 40    # total controlled-lane halting — distinguishes a real
+                               #   jam from the harmless end-of-episode drain
+    GRIDLOCK_PATIENCE  = 6     # decision steps (~60 s) of zero throughput
+    GRIDLOCK_WARMUP    = 35    # don't arm the guard until vehicles can reach exits
+    GRIDLOCK_PENALTY   = 10.0
 
     # ── Lane classification ──────────────────────────────────────────────
     MIN_VEH_SPEED = 8.0   # m/s — lanes below this are pedestrian/slow lanes
@@ -65,6 +81,7 @@ class BakuSUMOEnv(gym.Env):
         use_gui: bool   = False,
         b0: float       = 0.0,
         max_steps: int  = 1500,
+        meter_tls: list = None,
         label: str      = "default",
     ):
         """
@@ -91,6 +108,9 @@ class BakuSUMOEnv(gym.Env):
         self.b0              = b0
         self.max_steps       = max_steps
         self.label           = label
+        # TLs that receive a synthetic all-red action for ramp-style metering
+        # (single-phase junctions controlling a downstream bottleneck).
+        self.meter_tls       = set(meter_tls or [])
 
         # ── Spaces ──────────────────────────────────────────────────────
         self.observation_space = spaces.Box(
@@ -116,6 +136,10 @@ class BakuSUMOEnv(gym.Env):
 
         self._step_count    = 0
         self._sumo_running  = False
+        self._last_arrivals = 0  # Σ vehicles arrived over last decision interval (thesis Δthr)
+        self._ped_wait_count: dict = {}   # tl_id → #persons stopped at its crossings
+        self._ped_wait_time:  dict = {}   # tl_id → Σ pedestrian waiting time
+        self._gridlock_steps  = 0         # consecutive jammed decision steps
 
     # ════════════════════════════════════════════════════════════════════
     #  Gymnasium API
@@ -147,15 +171,18 @@ class BakuSUMOEnv(gym.Env):
                 traci.trafficlight.setRedYellowGreenState(tl_id, yw)
 
         # ── Advance DELTA_TIME simulation steps ──────────────────────
+        arrived = 0
         for t in range(self.DELTA_TIME):
             if t == self.YELLOW_TIME:
                 for tl_id, new_idx in switch_map.items():
                     green_state = self._green_states[tl_id][new_idx]
                     traci.trafficlight.setRedYellowGreenState(tl_id, green_state)
             traci.simulationStep()
+            arrived += int(traci.simulation.getArrivedNumber())
 
+        self._last_arrivals = arrived
+        self._update_ped_pressure()
         # ── Collect metrics and build output ─────────────────────────
-        arrived = traci.simulation.getArrivedNumber()
         obs     = self._get_obs()
         reward  = self._compute_reward(arrived, n_switches)
 
@@ -176,8 +203,30 @@ class BakuSUMOEnv(gym.Env):
                 else:
                     self._phase_age[tl_id][j] += 1
 
+        # Gridlock guard — end the episode with a penalty when the network is
+        # jammed (many vehicles present but ~none completing) for several
+        # consecutive steps. Bounds the catastrophic tail and signals that
+        # lock→gridlock trajectories are dead ends.
+        try:
+            veh_present = traci.vehicle.getIDCount()
+            total_q = sum(traci.lane.getLastStepHaltingNumber(ln)
+                          for lns in self._tl_lanes.values() for ln in lns)
+        except Exception:
+            veh_present, total_q = 0, 0
+        if (self._step_count > self.GRIDLOCK_WARMUP
+                and veh_present > self.GRIDLOCK_MIN_VEH
+                and total_q    > self.GRIDLOCK_MIN_QUEUE
+                and arrived < 1):
+            self._gridlock_steps += 1
+        else:
+            self._gridlock_steps = 0
+        gridlocked = self._gridlock_steps >= self.GRIDLOCK_PATIENCE
+        if gridlocked:
+            reward -= self.GRIDLOCK_PENALTY
+
         done = (
-            traci.simulation.getMinExpectedNumber() <= 0
+            gridlocked
+            or traci.simulation.getMinExpectedNumber() <= 0
             or self._step_count >= self.max_steps
         )
         return obs, reward, done, False, {}
@@ -208,6 +257,8 @@ class BakuSUMOEnv(gym.Env):
         self._discover_topology()
         self._reset_tracking()
         traci.simulationStep()          # populate detector values
+        self._last_arrivals = int(traci.simulation.getArrivedNumber())
+        self._update_ped_pressure()
 
     def _stop_sumo(self):
         if self._sumo_running:
@@ -240,6 +291,16 @@ class BakuSUMOEnv(gym.Env):
                 for i in green_idxs
             ]
 
+            # Metering: give a single-phase TL a 2nd action = all-red, so the
+            # agent can hold traffic and create gaps into a downstream squeeze
+            # (ramp-metering). Scoped via meter_tls so multi-phase TLs and other
+            # scenarios (e.g. hexagon's single-phase L-nodes) are untouched.
+            if tl_id in self.meter_tls and len(self._green_states[tl_id]) == 1:
+                all_red = "r" * len(self._green_states[tl_id][0])
+                self._green_sumo_indices[tl_id].append(-1)   # synthetic phase
+                self._green_states[tl_id].append(all_red)
+                self._yellow_states[tl_id].append(all_red)   # stay red in transition
+
             # Lane list (deduplicated, order-preserving)
             raw = traci.trafficlight.getControlledLanes(tl_id)
             seen, lanes = set(), []
@@ -260,6 +321,7 @@ class BakuSUMOEnv(gym.Env):
         self.action_space = spaces.MultiDiscrete(padded)
 
     def _reset_tracking(self):
+        self._gridlock_steps = 0
         for tl_id in self.tl_ids:
             n_green = len(self._green_sumo_indices[tl_id])
             self._cur_green_idx[tl_id]   = 0
@@ -311,7 +373,32 @@ class BakuSUMOEnv(gym.Env):
             self._phase_age[tl_id].max() / (2.0 * self.STARVATION_MAX_STEPS),
         )
 
-        return np.concatenate([lane_ratios, [phase_norm, steps_norm, starvation]])
+        # Pedestrian pressure: #persons stopped at this TL's crossings (0 where none)
+        ped = min(1.0, self._ped_wait_count.get(tl_id, 0) / self.PED_WAIT_NORM)
+
+        return np.concatenate([lane_ratios, [phase_norm, steps_norm, starvation, ped]])
+
+    def _update_ped_pressure(self):
+        """Per-TL count + accumulated wait of pedestrians stopped at this TL's
+        crossings/walkingareas (internal ':<tl>_*' edges). Naturally zero in
+        scenarios without persons, so the other benchmarks are unaffected."""
+        self._ped_wait_count = {tl: 0   for tl in self.tl_ids}
+        self._ped_wait_time  = {tl: 0.0 for tl in self.tl_ids}
+        try:
+            pids = traci.person.getIDList()
+        except Exception:
+            return
+        for p in pids:
+            road = traci.person.getRoadID(p)
+            if not road.startswith(":"):
+                continue                       # walking a footpath, not at a junction
+            if traci.person.getSpeed(p) >= 0.3:
+                continue                       # moving, not waiting to cross
+            for tl in self.tl_ids:
+                if road.startswith(f":{tl}_"):
+                    self._ped_wait_count[tl] += 1
+                    self._ped_wait_time[tl]  += traci.person.getWaitingTime(p)
+                    break
 
     # ════════════════════════════════════════════════════════════════════
     #  Reward  (thesis Eq. 1)
@@ -354,6 +441,15 @@ class BakuSUMOEnv(gym.Env):
         )
         psi = min(1.0, total_excess / (self.STARVATION_MAX_STEPS * max(1, self.n_tls)))
 
+        # Pedestrian pressure: mean (over TLs) of normalised persons stopped at
+        # crossings. Zero in car-only scenarios → leaves their reward unchanged.
+        ped_pressure = (
+            float(np.mean([
+                min(1.0, self._ped_wait_count.get(tl, 0) / self.PED_WAIT_NORM)
+                for tl in self.tl_ids
+            ])) if self.tl_ids else 0.0
+        )
+
         reward = (
               self.BETA_TP * arrived
             - self.BETA_SR * mean_sr
@@ -363,6 +459,7 @@ class BakuSUMOEnv(gym.Env):
             - self.BETA_CC * (max_sr - mean_sr) ** 2
             - self.BETA_ST * psi
             - self.BETA_SW * n_switches
+            - self.BETA_PED * ped_pressure
             + self.b0
         )
         return float(reward)
@@ -388,5 +485,26 @@ class BakuSUMOEnv(gym.Env):
             "stopped_ratio":  float(np.mean(stopped_ratios)) if stopped_ratios else 0.0,
             "waiting_time":   float(np.mean(wait_times))     if wait_times     else 0.0,
             "queue_length":   float(np.mean(queue_lengths))  if queue_lengths  else 0.0,
-            "arrived":        traci.simulation.getArrivedNumber(),
+            "arrived":        float(self._last_arrivals),
+            "ped_waiting":    float(sum(self._ped_wait_count.values())),
         }
+
+    def get_per_tl_metrics(self) -> dict:
+        """Per-junction metrics for animation: stopped_ratio, waiting_time, queue_length, phase."""
+        result = {}
+        for tl_id in self.tl_ids:
+            ratios, waits, queues = [], [], []
+            for ln in self._tl_lanes.get(tl_id, []):
+                if not self._is_veh_lane.get(ln, False):
+                    continue
+                halting = traci.lane.getLastStepHaltingNumber(ln)
+                ratios.append(min(1.0, halting / self._lane_cap[ln]))
+                waits.append(traci.lane.getWaitingTime(ln))
+                queues.append(float(halting))
+            result[tl_id] = {
+                "stopped_ratio": round(float(np.mean(ratios)) if ratios else 0.0, 4),
+                "waiting_time":  round(float(np.mean(waits))  if waits  else 0.0, 3),
+                "queue_length":  round(float(np.mean(queues)) if queues else 0.0, 3),
+                "phase":         int(self._cur_green_idx.get(tl_id, 0)),
+            }
+        return result

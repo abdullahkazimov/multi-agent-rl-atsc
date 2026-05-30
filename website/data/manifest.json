@@ -1,0 +1,655 @@
+{
+  "generated": "2026-05-30",
+  "steps": 300,
+  "warmup": 30,
+  "scenarios": {
+    "bottleneck": {
+      "title": "Baku Bottleneck",
+      "subtitle": "Ramp-Metering at a 2-Junction Squeeze",
+      "description": "Two signalised junctions (TL_Hasan_Aliyev, TL_Salamzade) control a high-demand single-lane squeeze. The PPO agent learns ramp-metering style control to prevent gridlock by creating vehicle gaps into the downstream bottleneck.",
+      "type": "bottleneck",
+      "seeds": [
+        42,
+        123,
+        456,
+        789,
+        1000
+      ],
+      "tl_ids": [
+        "TL_Hasan_Aliyev",
+        "TL_Salamzade"
+      ],
+      "n_tls": 2,
+      "demand_veh_h": 3000,
+      "mean_improvement": {
+        "waiting_time": 71.91711991512588,
+        "queue_length": 72.14265300753166,
+        "stopped_ratio": 70.26814105603803,
+        "throughput": 1.1832354258568916
+      },
+      "seed_summaries": [
+        {
+          "seed": 42,
+          "improvement": {
+            "waiting_time": 71.23171230077644,
+            "queue_length": 72.10539037950205,
+            "stopped_ratio": 70.21765449129889,
+            "throughput": 0.8106543138390198
+          },
+          "fixed_time": {
+            "waiting_time": 37.76234567901234,
+            "queue_length": 7.661111111111111,
+            "stopped_ratio": 0.13052379824351593,
+            "throughput": 6.396296296296296
+          },
+          "ppo_best": {
+            "waiting_time": 10.863580246913584,
+            "queue_length": 2.137037037037037,
+            "stopped_ratio": 0.03887304856396387,
+            "throughput": 6.448148148148148
+          }
+        },
+        {
+          "seed": 123,
+          "improvement": {
+            "waiting_time": 71.89511170730927,
+            "queue_length": 71.44035637683551,
+            "stopped_ratio": 69.6413363168963,
+            "throughput": -0.22922636103152239
+          },
+          "fixed_time": {
+            "waiting_time": 38.653703703703705,
+            "queue_length": 7.482716049382716,
+            "stopped_ratio": 0.12804598044807516,
+            "throughput": 6.462962962962963
+          },
+          "ppo_best": {
+            "waiting_time": 10.863580246913584,
+            "queue_length": 2.137037037037037,
+            "stopped_ratio": 0.03887304856396387,
+            "throughput": 6.448148148148148
+          }
+        },
+        {
+          "seed": 456,
+          "improvement": {
+            "waiting_time": 72.67829974850186,
+            "queue_length": 72.98056661203466,
+            "stopped_ratio": 70.96504400455792,
+            "throughput": 3.323442136498514
+          },
+          "fixed_time": {
+            "waiting_time": 39.76172839506173,
+            "queue_length": 7.909259259259259,
+            "stopped_ratio": 0.13388361453024478,
+            "throughput": 6.2407407407407405
+          },
+          "ppo_best": {
+            "waiting_time": 10.863580246913584,
+            "queue_length": 2.137037037037037,
+            "stopped_ratio": 0.03887304856396387,
+            "throughput": 6.448148148148148
+          }
+        },
+        {
+          "seed": 789,
+          "improvement": {
+            "waiting_time": 72.58124824728132,
+            "queue_length": 72.7465952924506,
+            "stopped_ratio": 70.82337176986415,
+            "throughput": 2.4117647058823395
+          },
+          "fixed_time": {
+            "waiting_time": 39.62098765432099,
+            "queue_length": 7.841358024691359,
+            "stopped_ratio": 0.13323351916248094,
+            "throughput": 6.296296296296297
+          },
+          "ppo_best": {
+            "waiting_time": 10.863580246913584,
+            "queue_length": 2.137037037037037,
+            "stopped_ratio": 0.03887304856396387,
+            "throughput": 6.448148148148148
+          }
+        },
+        {
+          "seed": 1000,
+          "improvement": {
+            "waiting_time": 71.19922757176053,
+            "queue_length": 71.44035637683551,
+            "stopped_ratio": 69.69329869757289,
+            "throughput": -0.4004576659038933
+          },
+          "fixed_time": {
+            "waiting_time": 37.71975308641976,
+            "queue_length": 7.4827160493827165,
+            "stopped_ratio": 0.12826552179352727,
+            "throughput": 6.474074074074074
+          },
+          "ppo_best": {
+            "waiting_time": 10.863580246913584,
+            "queue_length": 2.137037037037037,
+            "stopped_ratio": 0.03887304856396387,
+            "throughput": 6.448148148148148
+          }
+        }
+      ]
+    },
+    "main": {
+      "title": "Baku Main Arterial",
+      "subtitle": "Coordinated Green-Wave on a 3-Intersection Corridor",
+      "description": "Three signalised junctions (Int1, Int2, Int4) form an urban arterial corridor. The agent learns green-wave coordination across the connected network to minimise waiting time and prevent queue spillback.",
+      "type": "arterial",
+      "seeds": [
+        42,
+        123,
+        456,
+        789,
+        1000,
+        2000,
+        3000,
+        4000,
+        5000,
+        6000
+      ],
+      "tl_ids": [
+        "Int1",
+        "Int2",
+        "Int4"
+      ],
+      "n_tls": 3,
+      "demand_veh_h": 1330,
+      "mean_improvement": {
+        "waiting_time": 80.57676067372583,
+        "queue_length": 70.21288019648864,
+        "stopped_ratio": 71.87116987799472,
+        "throughput": 5.519192488688885
+      },
+      "seed_summaries": [
+        {
+          "seed": 42,
+          "improvement": {
+            "waiting_time": 84.49079392880523,
+            "queue_length": 74.00178451929513,
+            "stopped_ratio": 75.69132222694532,
+            "throughput": 5.9637912673056395
+          },
+          "fixed_time": {
+            "waiting_time": 40.68130511463844,
+            "queue_length": 1.581305114638448,
+            "stopped_ratio": 0.02946531549927409,
+            "throughput": 3.477777777777778
+          },
+          "ppo_best": {
+            "waiting_time": 6.309347442680775,
+            "queue_length": 0.4111111111111111,
+            "stopped_ratio": 0.0071626285995324765,
+            "throughput": 3.685185185185185
+          }
+        },
+        {
+          "seed": 123,
+          "improvement": {
+            "waiting_time": 72.16182776035548,
+            "queue_length": 65.38975501113585,
+            "stopped_ratio": 66.95417936315124,
+            "throughput": 4.6267087276551
+          },
+          "fixed_time": {
+            "waiting_time": 22.664373897707232,
+            "queue_length": 1.1878306878306877,
+            "stopped_ratio": 0.021674839545505385,
+            "throughput": 3.522222222222222
+          },
+          "ppo_best": {
+            "waiting_time": 6.309347442680775,
+            "queue_length": 0.4111111111111111,
+            "stopped_ratio": 0.0071626285995324765,
+            "throughput": 3.685185185185185
+          }
+        },
+        {
+          "seed": 456,
+          "improvement": {
+            "waiting_time": 72.43319051875598,
+            "queue_length": 66.92678774120317,
+            "stopped_ratio": 68.57619237496712,
+            "throughput": 4.736842105263154
+          },
+          "fixed_time": {
+            "waiting_time": 22.88747795414462,
+            "queue_length": 1.2430335097001763,
+            "stopped_ratio": 0.02279363686603839,
+            "throughput": 3.5185185185185186
+          },
+          "ppo_best": {
+            "waiting_time": 6.309347442680775,
+            "queue_length": 0.4111111111111111,
+            "stopped_ratio": 0.0071626285995324765,
+            "throughput": 3.685185185185185
+          }
+        },
+        {
+          "seed": 789,
+          "improvement": {
+            "waiting_time": 81.9631134729603,
+            "queue_length": 70.02700270027003,
+            "stopped_ratio": 71.69778179920273,
+            "throughput": 5.291005291005289
+          },
+          "fixed_time": {
+            "waiting_time": 34.98024691358025,
+            "queue_length": 1.3716049382716047,
+            "stopped_ratio": 0.02530765803837491,
+            "throughput": 3.5
+          },
+          "ppo_best": {
+            "waiting_time": 6.309347442680775,
+            "queue_length": 0.4111111111111111,
+            "stopped_ratio": 0.0071626285995324765,
+            "throughput": 3.685185185185185
+          }
+        },
+        {
+          "seed": 1000,
+          "improvement": {
+            "waiting_time": 86.47572745797056,
+            "queue_length": 71.00385620102003,
+            "stopped_ratio": 72.6948039756755,
+            "throughput": 6.076759061833694
+          },
+          "fixed_time": {
+            "waiting_time": 46.65202821869488,
+            "queue_length": 1.4178130511463842,
+            "stopped_ratio": 0.026231742094624536,
+            "throughput": 3.474074074074074
+          },
+          "ppo_best": {
+            "waiting_time": 6.309347442680775,
+            "queue_length": 0.4111111111111111,
+            "stopped_ratio": 0.0071626285995324765,
+            "throughput": 3.685185185185185
+          }
+        },
+        {
+          "seed": 2000,
+          "improvement": {
+            "waiting_time": 86.30156918906087,
+            "queue_length": 73.04267375968543,
+            "stopped_ratio": 74.70453294933984,
+            "throughput": 6.189967982924226
+          },
+          "fixed_time": {
+            "waiting_time": 46.05890652557319,
+            "queue_length": 1.5250440917107582,
+            "stopped_ratio": 0.028315858272897735,
+            "throughput": 3.4703703703703703
+          },
+          "ppo_best": {
+            "waiting_time": 6.309347442680775,
+            "queue_length": 0.4111111111111111,
+            "stopped_ratio": 0.0071626285995324765,
+            "throughput": 3.685185185185185
+          }
+        },
+        {
+          "seed": 3000,
+          "improvement": {
+            "waiting_time": 84.54706850451183,
+            "queue_length": 73.49630471859011,
+            "stopped_ratio": 75.2003198480683,
+            "throughput": 5.9637912673056395
+          },
+          "fixed_time": {
+            "waiting_time": 40.82945326278659,
+            "queue_length": 1.5511463844797175,
+            "stopped_ratio": 0.028881939426846068,
+            "throughput": 3.477777777777778
+          },
+          "ppo_best": {
+            "waiting_time": 6.309347442680775,
+            "queue_length": 0.4111111111111111,
+            "stopped_ratio": 0.0071626285995324765,
+            "throughput": 3.685185185185185
+          }
+        },
+        {
+          "seed": 4000,
+          "improvement": {
+            "waiting_time": 68.15219713695606,
+            "queue_length": 65.2608047690015,
+            "stopped_ratio": 66.84686021193714,
+            "throughput": 4.297693920335431
+          },
+          "fixed_time": {
+            "waiting_time": 19.810934744268074,
+            "queue_length": 1.18342151675485,
+            "stopped_ratio": 0.0216046764961654,
+            "throughput": 3.533333333333333
+          },
+          "ppo_best": {
+            "waiting_time": 6.309347442680775,
+            "queue_length": 0.4111111111111111,
+            "stopped_ratio": 0.0071626285995324765,
+            "throughput": 3.685185185185185
+          }
+        },
+        {
+          "seed": 5000,
+          "improvement": {
+            "waiting_time": 85.20659653301576,
+            "queue_length": 73.3630442235173,
+            "stopped_ratio": 75.06565438141679,
+            "throughput": 6.53104925053533
+          },
+          "fixed_time": {
+            "waiting_time": 42.64973544973545,
+            "queue_length": 1.5433862433862433,
+            "stopped_ratio": 0.028725953787190114,
+            "throughput": 3.4592592592592593
+          },
+          "ppo_best": {
+            "waiting_time": 6.309347442680775,
+            "queue_length": 0.4111111111111111,
+            "stopped_ratio": 0.0071626285995324765,
+            "throughput": 3.685185185185185
+          }
+        },
+        {
+          "seed": 6000,
+          "improvement": {
+            "waiting_time": 84.03552223486625,
+            "queue_length": 69.61678832116789,
+            "stopped_ratio": 71.28005164924312,
+            "throughput": 5.514316012725346
+          },
+          "fixed_time": {
+            "waiting_time": 39.521164021164026,
+            "queue_length": 1.3530864197530865,
+            "stopped_ratio": 0.024939559472932384,
+            "throughput": 3.4925925925925925
+          },
+          "ppo_best": {
+            "waiting_time": 6.309347442680775,
+            "queue_length": 0.4111111111111111,
+            "stopped_ratio": 0.0071626285995324765,
+            "throughput": 3.685185185185185
+          }
+        }
+      ]
+    },
+    "pedestrian": {
+      "title": "Baku Pedestrian Junction",
+      "subtitle": "Mixed Vehicle & Pedestrian Signal Control",
+      "description": "A single complex junction (Central) with both vehicular lanes and pedestrian crossings. The agent selects among 4 green phases (2 pedestrian, 2 vehicle) to balance vehicle throughput against pedestrian waiting pressure.",
+      "type": "pedestrian",
+      "seeds": [
+        42,
+        123,
+        456,
+        789,
+        1000
+      ],
+      "tl_ids": [
+        "Central"
+      ],
+      "n_tls": 1,
+      "demand_veh_h": 1000,
+      "mean_improvement": {
+        "waiting_time": 19.286261704391023,
+        "queue_length": 11.553012565116033,
+        "stopped_ratio": 11.55301256511603,
+        "throughput": -0.5598224589436256
+      },
+      "seed_summaries": [
+        {
+          "seed": 42,
+          "improvement": {
+            "waiting_time": 18.65031544623236,
+            "queue_length": 10.964083175803403,
+            "stopped_ratio": 10.964083175803394,
+            "throughput": -0.5333333333333261
+          },
+          "fixed_time": {
+            "waiting_time": 13.062037037037037,
+            "queue_length": 0.9796296296296296,
+            "stopped_ratio": 0.019055482071276872,
+            "throughput": 2.7777777777777777
+          },
+          "ppo_best": {
+            "waiting_time": 10.625925925925927,
+            "queue_length": 0.8722222222222222,
+            "stopped_ratio": 0.016966223167431772,
+            "throughput": 2.762962962962963
+          }
+        },
+        {
+          "seed": 123,
+          "improvement": {
+            "waiting_time": 18.23881447705899,
+            "queue_length": 10.371075166508081,
+            "stopped_ratio": 10.371075166508074,
+            "throughput": -0.5333333333333261
+          },
+          "fixed_time": {
+            "waiting_time": 12.996296296296297,
+            "queue_length": 0.9731481481481481,
+            "stopped_ratio": 0.01892940610294139,
+            "throughput": 2.7777777777777777
+          },
+          "ppo_best": {
+            "waiting_time": 10.625925925925927,
+            "queue_length": 0.8722222222222222,
+            "stopped_ratio": 0.016966223167431772,
+            "throughput": 2.762962962962963
+          }
+        },
+        {
+          "seed": 456,
+          "improvement": {
+            "waiting_time": 22.22297526262283,
+            "queue_length": 13.099630996309966,
+            "stopped_ratio": 13.099630996309969,
+            "throughput": -0.5333333333333261
+          },
+          "fixed_time": {
+            "waiting_time": 13.662037037037036,
+            "queue_length": 1.0037037037037038,
+            "stopped_ratio": 0.019523764239380088,
+            "throughput": 2.7777777777777777
+          },
+          "ppo_best": {
+            "waiting_time": 10.625925925925927,
+            "queue_length": 0.8722222222222222,
+            "stopped_ratio": 0.016966223167431772,
+            "throughput": 2.762962962962963
+          }
+        },
+        {
+          "seed": 789,
+          "improvement": {
+            "waiting_time": 16.453115899825267,
+            "queue_length": 10.795454545454541,
+            "stopped_ratio": 10.795454545454538,
+            "throughput": -0.6657789613848232
+          },
+          "fixed_time": {
+            "waiting_time": 12.718518518518518,
+            "queue_length": 0.9777777777777777,
+            "stopped_ratio": 0.019019460366038164,
+            "throughput": 2.7814814814814817
+          },
+          "ppo_best": {
+            "waiting_time": 10.625925925925927,
+            "queue_length": 0.8722222222222222,
+            "stopped_ratio": 0.016966223167431772,
+            "throughput": 2.762962962962963
+          }
+        },
+        {
+          "seed": 1000,
+          "improvement": {
+            "waiting_time": 20.866087436215686,
+            "queue_length": 12.534818941504177,
+            "stopped_ratio": 12.534818941504167,
+            "throughput": -0.5333333333333261
+          },
+          "fixed_time": {
+            "waiting_time": 13.427777777777777,
+            "queue_length": 0.9972222222222222,
+            "stopped_ratio": 0.019397688271044603,
+            "throughput": 2.7777777777777777
+          },
+          "ppo_best": {
+            "waiting_time": 10.625925925925927,
+            "queue_length": 0.8722222222222222,
+            "stopped_ratio": 0.016966223167431772,
+            "throughput": 2.762962962962963
+          }
+        }
+      ]
+    },
+    "hexagon": {
+      "title": "Baku Hexagon Highway",
+      "subtitle": "Multi-Agent Control of a 12-TL Highway Sub-Network",
+      "description": "The largest benchmark: 12 traffic lights (Int1\u20136, L1\u20136) in a hexagonal highway sub-network with a 156-dimensional observation space. The agent must coordinate distributed signal control across the full network to achieve free-flow conditions.",
+      "type": "highway",
+      "seeds": [
+        42,
+        123,
+        456,
+        789,
+        1000
+      ],
+      "tl_ids": [
+        "Int1",
+        "Int2",
+        "Int3",
+        "Int4",
+        "Int5",
+        "Int6",
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6"
+      ],
+      "n_tls": 12,
+      "demand_veh_h": 2600,
+      "mean_improvement": {
+        "waiting_time": 100.0,
+        "queue_length": 99.20279722285727,
+        "stopped_ratio": 98.41809945549412,
+        "throughput": 15.030079120255257
+      },
+      "seed_summaries": [
+        {
+          "seed": 42,
+          "improvement": {
+            "waiting_time": 100.0,
+            "queue_length": 99.20002549719531,
+            "stopped_ratio": 98.42323941975692,
+            "throughput": 14.988151658767782
+          },
+          "fixed_time": {
+            "waiting_time": 33.23009259259259,
+            "queue_length": 1.6139917695473252,
+            "stopped_ratio": 0.013761154235257509,
+            "throughput": 6.2518518518518515
+          },
+          "ppo_best": {
+            "waiting_time": 0.0,
+            "queue_length": 0.012911522633744855,
+            "stopped_ratio": 0.00021698045536799025,
+            "throughput": 7.188888888888889
+          }
+        },
+        {
+          "seed": 123,
+          "improvement": {
+            "waiting_time": 100.0,
+            "queue_length": 99.19372972278437,
+            "stopped_ratio": 98.41697141515495,
+            "throughput": 15.26128266033254
+          },
+          "fixed_time": {
+            "waiting_time": 34.62021604938271,
+            "queue_length": 1.601388888888889,
+            "stopped_ratio": 0.013706666919677063,
+            "throughput": 6.237037037037037
+          },
+          "ppo_best": {
+            "waiting_time": 0.0,
+            "queue_length": 0.012911522633744855,
+            "stopped_ratio": 0.00021698045536799025,
+            "throughput": 7.188888888888889
+          }
+        },
+        {
+          "seed": 456,
+          "improvement": {
+            "waiting_time": 100.0,
+            "queue_length": 99.21217827997489,
+            "stopped_ratio": 98.43580530525192,
+            "throughput": 15.19287833827894
+          },
+          "fixed_time": {
+            "waiting_time": 34.13935185185185,
+            "queue_length": 1.6388888888888888,
+            "stopped_ratio": 0.013871703829230541,
+            "throughput": 6.2407407407407405
+          },
+          "ppo_best": {
+            "waiting_time": 0.0,
+            "queue_length": 0.012911522633744855,
+            "stopped_ratio": 0.00021698045536799025,
+            "throughput": 7.188888888888889
+          }
+        },
+        {
+          "seed": 789,
+          "improvement": {
+            "waiting_time": 100.0,
+            "queue_length": 99.19323733607611,
+            "stopped_ratio": 98.38898775129945,
+            "throughput": 14.37831467295228
+          },
+          "fixed_time": {
+            "waiting_time": 34.390174897119344,
+            "queue_length": 1.6004115226337448,
+            "stopped_ratio": 0.013468578872879961,
+            "throughput": 6.285185185185185
+          },
+          "ppo_best": {
+            "waiting_time": 0.0,
+            "queue_length": 0.012911522633744855,
+            "stopped_ratio": 0.00021698045536799025,
+            "throughput": 7.188888888888889
+          }
+        },
+        {
+          "seed": 1000,
+          "improvement": {
+            "waiting_time": 100.0,
+            "queue_length": 99.2148152782557,
+            "stopped_ratio": 98.42549338600736,
+            "throughput": 15.329768270944744
+          },
+          "fixed_time": {
+            "waiting_time": 35.09681069958848,
+            "queue_length": 1.6443930041152262,
+            "stopped_ratio": 0.013780853852228001,
+            "throughput": 6.233333333333333
+          },
+          "ppo_best": {
+            "waiting_time": 0.0,
+            "queue_length": 0.012911522633744855,
+            "stopped_ratio": 0.00021698045536799025,
+            "throughput": 7.188888888888889
+          }
+        }
+      ]
+    }
+  }
+}

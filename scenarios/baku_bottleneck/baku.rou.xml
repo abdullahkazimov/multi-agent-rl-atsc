@@ -13,6 +13,14 @@
     <route id="r_north" edges="tbilisi_ave_wide     salamzade_squeeze to_hasan_aliyev exit_center n1 n2 n3"/>
     <route id="r_south" edges="tbilisi_ave_wide salamzade_squeeze to_hasan_aliyev exit_center s1 s2 s3"/>
 
-    <flow id="f_n" type="baku_driver" route="r_north" begin="0" end="3600" vehsPerHour="7500" departLane="random" departSpeed="max"/>
-    <flow id="f_s" type="baku_driver" route="r_south" begin="0" end="3600" vehsPerHour="7500" departLane="random" departSpeed="max"/>
+    <!-- Demand recalibrated 2026-05-29 (PLAN.md R2). Both flows merge through the
+         single-lane `salamzade_squeeze`, capacity ~1900 veh/h (~945 completions/1800s).
+         Measured always-green congestion knee: 2x1000 free-flow (q~7), 2x1500
+         congested (q~40, throughput at capacity), 2x2000 heavy (q~84). The old
+         2x7500 (~8x cap) gridlocked from t=0 with no learnable signal. 2x1500 =
+         3000 veh/h sits just over capacity: a standing queue forms under fixed-time,
+         giving the metering agent (green/all-red) room to cut delay without an
+         unrecoverable jam. -->
+    <flow id="f_n" type="baku_driver" route="r_north" begin="0" end="3600" vehsPerHour="1500" departLane="random" departSpeed="max"/>
+    <flow id="f_s" type="baku_driver" route="r_south" begin="0" end="3600" vehsPerHour="1500" departLane="random" departSpeed="max"/>
 </routes>

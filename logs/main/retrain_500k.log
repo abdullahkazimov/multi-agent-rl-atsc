@@ -1,0 +1,360 @@
+09:36:13  INFO     Loaded B2 baseline: b0 = 87.154794
+Using cuda device
+09:36:16  INFO     Training  scenario=main  steps=500000  envs=4  seed=42  device=auto  b0=87.1548
+Logging to logs/main/PPO_5
+09:36:17  INFO     EvalCallback: computing FT baseline (seed=42, 300 steps)…
+ Retrying in 1 seconds
+09:36:21  INFO     FT baseline  stop=0.0570  wait=343.66  queue=3.0175  thr=4.4296
+
+──────────────────────────────────────────────────────────────────────────────────
+   Timestep   Stop.Ratio%   WaitTime%    Queue%   Throughput%    MeanRew
+──────────────────────────────────────────────────────────────────────────────────
+-----------------------------
+| time/              |      |
+|    fps             | 164  |
+|    iterations      | 1    |
+|    time_elapsed    | 24   |
+|    total_timesteps | 4096 |
+-----------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 146         |
+|    iterations           | 2           |
+|    time_elapsed         | 55          |
+|    total_timesteps      | 8192        |
+| train/                  |             |
+|    approx_kl            | 0.009322966 |
+|    clip_fraction        | 0.104       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -2.07       |
+|    explained_variance   | -0.589      |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.0778      |
+|    n_updates            | 10          |
+|    policy_gradient_loss | -0.00965    |
+|    value_loss           | 0.536       |
+-----------------------------------------
+ Retrying in 1 seconds
+     10,000        -171.3     -3419.5    -241.0         -30.7    +0.0511
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 133         |
+|    iterations           | 3           |
+|    time_elapsed         | 91          |
+|    total_timesteps      | 12288       |
+| train/                  |             |
+|    approx_kl            | 0.010057936 |
+|    clip_fraction        | 0.128       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -2.06       |
+|    explained_variance   | -0.492      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0237     |
+|    n_updates            | 20          |
+|    policy_gradient_loss | -0.0124     |
+|    value_loss           | 0.0381      |
+-----------------------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 135         |
+|    iterations           | 4           |
+|    time_elapsed         | 120         |
+|    total_timesteps      | 16384       |
+| train/                  |             |
+|    approx_kl            | 0.009226024 |
+|    clip_fraction        | 0.127       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -2.06       |
+|    explained_variance   | 0.343       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.00489    |
+|    n_updates            | 30          |
+|    policy_gradient_loss | -0.0104     |
+|    value_loss           | 0.0359      |
+-----------------------------------------
+ Retrying in 1 seconds
+     20,000        -130.1     -3069.1    -177.3         -31.4    +0.0432
+----------------------------------------
+| time/                   |            |
+|    fps                  | 129        |
+|    iterations           | 5          |
+|    time_elapsed         | 158        |
+|    total_timesteps      | 20480      |
+| train/                  |            |
+|    approx_kl            | 0.00867584 |
+|    clip_fraction        | 0.107      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -2.05      |
+|    explained_variance   | 0.374      |
+|    learning_rate        | 0.0003     |
+|    loss                 | -0.0108    |
+|    n_updates            | 40         |
+|    policy_gradient_loss | -0.00771   |
+|    value_loss           | 0.0368     |
+----------------------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 130         |
+|    iterations           | 6           |
+|    time_elapsed         | 188         |
+|    total_timesteps      | 24576       |
+| train/                  |             |
+|    approx_kl            | 0.007408185 |
+|    clip_fraction        | 0.089       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -2.05       |
+|    explained_variance   | 0.528       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.00374    |
+|    n_updates            | 50          |
+|    policy_gradient_loss | -0.0073     |
+|    value_loss           | 0.0573      |
+-----------------------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 133         |
+|    iterations           | 7           |
+|    time_elapsed         | 215         |
+|    total_timesteps      | 28672       |
+| train/                  |             |
+|    approx_kl            | 0.007836263 |
+|    clip_fraction        | 0.0899      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -2.04       |
+|    explained_variance   | 0.658       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.0135      |
+|    n_updates            | 60          |
+|    policy_gradient_loss | -0.00775    |
+|    value_loss           | 0.069       |
+-----------------------------------------
+ Retrying in 1 seconds
+     30,000        -157.5     -3313.3    -214.9         -32.9    +0.0434
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 130         |
+|    iterations           | 8           |
+|    time_elapsed         | 251         |
+|    total_timesteps      | 32768       |
+| train/                  |             |
+|    approx_kl            | 0.008413827 |
+|    clip_fraction        | 0.126       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -2.03       |
+|    explained_variance   | 0.652       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0291     |
+|    n_updates            | 70          |
+|    policy_gradient_loss | -0.0107     |
+|    value_loss           | 0.0465      |
+-----------------------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 131         |
+|    iterations           | 9           |
+|    time_elapsed         | 280         |
+|    total_timesteps      | 36864       |
+| train/                  |             |
+|    approx_kl            | 0.008736629 |
+|    clip_fraction        | 0.0979      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -2.03       |
+|    explained_variance   | 0.727       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.0108      |
+|    n_updates            | 80          |
+|    policy_gradient_loss | -0.00941    |
+|    value_loss           | 0.0793      |
+-----------------------------------------
+ Retrying in 1 seconds
+     40,000         -65.1      -464.5     -91.7          -8.0    +0.0436
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 131         |
+|    iterations           | 10          |
+|    time_elapsed         | 312         |
+|    total_timesteps      | 40960       |
+| train/                  |             |
+|    approx_kl            | 0.009141089 |
+|    clip_fraction        | 0.123       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -2.03       |
+|    explained_variance   | 0.749       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.0305      |
+|    n_updates            | 90          |
+|    policy_gradient_loss | -0.0105     |
+|    value_loss           | 0.088       |
+-----------------------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 131         |
+|    iterations           | 11          |
+|    time_elapsed         | 342         |
+|    total_timesteps      | 45056       |
+| train/                  |             |
+|    approx_kl            | 0.009096395 |
+|    clip_fraction        | 0.116       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -2.02       |
+|    explained_variance   | 0.735       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0133     |
+|    n_updates            | 100         |
+|    policy_gradient_loss | -0.00996    |
+|    value_loss           | 0.058       |
+-----------------------------------------
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 131         |
+|    iterations           | 12          |
+|    time_elapsed         | 372         |
+|    total_timesteps      | 49152       |
+| train/                  |             |
+|    approx_kl            | 0.008747023 |
+|    clip_fraction        | 0.112       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -2          |
+|    explained_variance   | 0.738       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.0817      |
+|    n_updates            | 110         |
+|    policy_gradient_loss | -0.00932    |
+|    value_loss           | 0.0899      |
+-----------------------------------------
+ Retrying in 1 seconds
+     50,000        -256.0     -4177.9    -381.1         -30.0    +0.0436
+-----------------------------------------
+| time/                   |             |
+|    fps                  | 130         |
+|    iterations           | 13          |
+|    time_elapsed         | 406         |
+|    total_timesteps      | 53248       |
+| train/                  |             |
+|    approx_kl            | 0.007885963 |
+|    clip_fraction        | 0.0896      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -1.99       |
+|    explained_variance   | 0.769       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0342     |
+|    n_updates            | 120         |
+|    policy_gradient_loss | -0.00819    |
+|    value_loss           | 0.1         |
+-----------------------------------------
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+Process SpawnProcess-4:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/abdullah/ml/lib/python3.12/site-packages/stable_baselines3/common/vec_env/subproc_vec_env.py", line 43, in _worker
+    remote.send((observation, reward, done, info, reset_info))
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+ Retrying in 1 seconds
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
+Quitting (on error).
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
+Quitting (on error).
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
+Quitting (on error).
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
+Quitting (on error).

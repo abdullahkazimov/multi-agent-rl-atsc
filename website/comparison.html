@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOTA Comparison — MARL-ATSC Baku</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .cmp-page { padding: 48px 0 80px; }
+
+    /* ── Bar chart ── */
+    .bar-chart { display: flex; flex-direction: column; gap: 8px; margin: 24px 0; }
+    .bar-row   { display: flex; align-items: center; gap: 12px; }
+    .bar-label { font-size: 12px; color: var(--txt-2); min-width: 200px; text-align: right; flex-shrink: 0; }
+    .bar-label.ours { color: var(--green); font-weight: 700; }
+    .bar-label.worse { color: var(--red); }
+    .bar-track { flex: 1; height: 20px; background: var(--bg-elevated); border-radius: 3px; position: relative; overflow: visible; }
+    .bar-fill  { height: 100%; border-radius: 3px; transition: width .6s ease; }
+    .bar-fill.pos { background: linear-gradient(90deg, #10b981, #06b6d4); }
+    .bar-fill.neg { background: var(--red); }
+    .bar-fill.ours-fill { background: linear-gradient(90deg, #10b981, #a78bfa); }
+    .bar-val   { font-size: 11px; font-family: var(--mono); color: var(--txt-2); min-width: 55px; }
+    .bar-ref   { font-size: 10px; color: var(--txt-3); min-width: 100px; }
+    .bar-separator { height: 1px; background: var(--border); margin: 4px 0; }
+
+    /* ── Feature matrix ── */
+    .feat-table { width: 100%; border-collapse: collapse; }
+    .feat-table th { font-size: 11px; color: var(--txt-3); text-transform: uppercase; letter-spacing:.06em; padding: 10px 14px; background: var(--bg-elevated); text-align: left; border-bottom: 1px solid var(--border); }
+    .feat-table td { font-size: 12px; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .feat-table tr:last-child td { border-bottom: none; }
+    .feat-table tr.ours-row td { background: rgba(16,185,129,.06); }
+    .feat-table tr.ours-row td:first-child { border-left: 3px solid var(--green); }
+    .tick.yes  { color: var(--green); font-weight: 700; }
+    .tick.no   { color: var(--red); }
+    .tick.part { color: var(--orange); }
+
+    /* ── Paper cards ── */
+    .papers-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+    @media (max-width: 768px) { .papers-grid { grid-template-columns: 1fr; } }
+
+    .paper-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 20px; display: flex; flex-direction: column; gap: 10px;
+    }
+    .paper-year  { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--bg-elevated); color: var(--txt-2); display: inline-block; }
+    .paper-title { font-size: 14px; font-weight: 700; }
+    .paper-ref   { font-size: 11px; font-family: var(--mono); color: var(--txt-3); }
+    .paper-finding { font-size: 13px; color: var(--txt-2); }
+    .paper-result { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pr-tag { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; }
+    .pr-tag.pos  { background: var(--green-dim); color: var(--green); }
+    .pr-tag.neg  { background: var(--red-dim);   color: var(--red); }
+    .pr-tag.warn { background: var(--orange-dim); color: var(--orange); }
+
+    /* ── Caveat box ── */
+    .caveat-box {
+      background: var(--orange-dim); border: 1px solid rgba(249,115,22,.3);
+      border-radius: var(--r-lg); padding: 20px; font-size: 13px; line-height: 1.8;
+    }
+    .caveat-box h4 { color: var(--orange); font-size: 14px; margin-bottom: 8px; }
+
+    /* ── Scenario radar placeholder ── */
+    .radar-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 768px) { .radar-wrap { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <div class="nav-logo">
+      <div class="dot">RL</div>
+      <a href="index.html" style="color:inherit;text-decoration:none">MARL-ATSC Baku</a>
+    </div>
+    <div class="nav-links">
+      <a href="index.html#scenarios">Scenarios</a>
+      <a href="index.html#results">Results</a>
+      <a href="animation.html">▶ Animation</a>
+      <a href="comparison.html" style="color:var(--green)">SOTA Comparison</a>
+    </div>
+  </div>
+</nav>
+
+<div class="cmp-page">
+<div class="container">
+
+  <!-- ── Header ── -->
+  <div style="margin-bottom:32px">
+    <div style="font-size:11px;color:var(--txt-3);margin-bottom:10px">
+      <a href="index.html" style="color:var(--txt-2)">← Back to Overview</a>
+    </div>
+    <h1 style="font-size:clamp(22px,3vw,34px);font-weight:800;margin-bottom:10px">
+      SOTA Comparison — 2025–2026 Papers
+    </h1>
+    <p style="font-size:14px;color:var(--txt-2);max-width:700px;line-height:1.7">
+      Contextualising our PPO-ATSC results against state-of-the-art approaches from
+      recent literature. Primary metric: <strong style="color:var(--txt)">% improvement over
+      fixed-time baseline</strong> — the most scenario-invariant measure available
+      across heterogeneous benchmarks.
+    </p>
+  </div>
+
+  <!-- ── Surveyed papers ── -->
+  <div style="margin-bottom:40px">
+    <h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Surveyed Papers</h2>
+    <div class="papers-grid" id="papers-grid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+
+  <!-- ── Main comparison bar chart ── -->
+  <div class="heatmap-section" style="margin-bottom:24px">
+    <div class="heatmap-header">
+      <div>
+        <div class="heatmap-title">% Improvement in Waiting / Travel Time over Fixed-Time Baseline</div>
+        <div class="heatmap-sub">
+          Positive = RL better than fixed-time &nbsp;·&nbsp; Negative = RL <em>worse</em> than fixed-time (⚠)
+          &nbsp;·&nbsp; <span style="color:var(--green)">Green bars = our models</span>
+        </div>
+      </div>
+    </div>
+    <div class="bar-chart" id="main-bar-chart"><!-- populated by JS --></div>
+    <p style="font-size:11px;color:var(--txt-3);margin-top:12px">
+      * Mahato (2025) reports cumulative waiting time (different unit), shown here as reported 78.25%.
+      † Travel time and waiting time are correlated but not identical metrics.
+    </p>
+  </div>
+
+  <!-- ── Methodology feature matrix ── -->
+  <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);padding:28px;margin-bottom:24px">
+    <h2 style="font-size:16px;font-weight:700;margin-bottom:4px">Methodology Comparison</h2>
+    <p style="font-size:13px;color:var(--txt-2);margin-bottom:18px">
+      Implementation features that distinguish our approach from standard baselines.
+    </p>
+    <div style="overflow-x:auto">
+      <table class="feat-table" id="feat-table"><!-- populated by JS --></table>
+    </div>
+  </div>
+
+  <!-- ── Key findings ── -->
+  <div style="margin-bottom:24px">
+    <h2 style="font-size:18px;font-weight:700;margin-bottom:16px">Key Findings</h2>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px" id="findings-grid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+
+  <!-- ── Caveats ── -->
+  <div class="caveat-box" id="caveats-box">
+    <h4>⚠ Comparison Caveats — Interpreting Cross-Paper Results</h4>
+    <div id="caveats-list"></div>
+  </div>
+
+</div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>MARL-ATSC Baku — Abdullah Kazimov, ADA University, 2026</p>
+    <p style="font-size:11px;margin-top:4px">
+      Papers cited: T-REX (arXiv:2506.13836) · Mahato (arXiv:2505.14544) ·
+      Martinez et al. (arXiv:2503.02189) · Robust MARL (arXiv:2603.12096) · VCL-PPO (arXiv:2602.12296)
+    </p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+'use strict';
+
+// ── Data (mirrors benchmark_compare.py) ────────────────────────────────────
+const PAPERS = [
+  {
+    id:'trex2025', year:2025, ref:'arXiv:2506.13836',
+    url:'https://arxiv.org/abs/2506.13836',
+    title:'Robustness of RL-Based TSC under Incidents: A Comparative Study',
+    finding:'Evaluates IDQN, MPLight, FMA2C on RESCO scenarios under normal and incident conditions.',
+    tags:[
+      {label:'IDQN +28.7%',cls:'pos'},{label:'MPLight +21.6%',cls:'pos'},
+      {label:'FMA2C −5.5%',cls:'neg'},{label:'Cologne RL worse',cls:'warn'},
+    ],
+  },
+  {
+    id:'mahato2025', year:2025, ref:'arXiv:2505.14544',
+    url:'https://arxiv.org/abs/2505.14544',
+    title:'Smart Traffic Signals: Comparing MARL and Fixed-Time Strategies',
+    finding:'MARL reduces cumulative wait time by 78.25% on 4-intersection 2×2 grid vs fixed-time.',
+    tags:[{label:'Wait −78.3%',cls:'pos'},{label:'Throughput +0.6%',cls:'pos'}],
+  },
+  {
+    id:'martinez2025', year:2025, ref:'arXiv:2503.02189',
+    url:'https://arxiv.org/abs/2503.02189',
+    title:'Adaptive TSC based on MARL — Real-World Corridor Case Study',
+    finding:'MA-PPO (CTDE, 8 phases) vs field-deployed actuated control on 7-intersection arterial.',
+    tags:[{label:'Travel −24%',cls:'pos'},{label:'vs actuated',cls:'warn'},{label:'PTV-Vissim',cls:'warn'}],
+  },
+  {
+    id:'robust2026', year:2026, ref:'arXiv:2603.12096',
+    url:'https://arxiv.org/abs/2603.12096',
+    title:'A Robust & Efficient MARL Framework for Traffic Signal Control',
+    finding:'MAPPO + Turning Ratio Randomisation + Exponential Phase Duration Adjustment for robustness.',
+    tags:[{label:'>10% vs RL',cls:'pos'},{label:'VISSIM',cls:'warn'},{label:'MAPPO+TRR',cls:'pos'}],
+  },
+  {
+    id:'vclppo2025', year:2025, ref:'arXiv:2602.12296',
+    url:'https://arxiv.org/abs/2602.12296',
+    title:'Adaptive TSC Optimization — Novel Road Partition & Multi-Channel State Representation',
+    finding:'VCL-PPO outperforms fixed/actuated/DQN at a single intersection across 6 demand levels.',
+    tags:[{label:'VCL-PPO best',cls:'pos'},{label:'6 demand levels',cls:'warn'},{label:'PPO-based',cls:'pos'}],
+  },
+];
+
+const BAR_DATA = [
+  // SOTA
+  {label:'MARL custom (Mahato 2025)',     pct:78.25, ref:'arXiv:2505.14544', ours:false, metric:'wait_time'},
+  {label:'Federated PPO (2025)',          pct:37.0,  ref:'Sci. Reports 2025',ours:false, metric:'wait_time'},
+  {label:'IDQN — Grid 4×4 (T-REX 2025)',  pct:28.7,  ref:'arXiv:2506.13836', ours:false, metric:'travel_time'},
+  {label:'MA-PPO CTDE (Martinez 2025)',   pct:24.0,  ref:'arXiv:2503.02189', ours:false, metric:'travel_time'},
+  {label:'MPLight — Grid 4×4 (T-REX)',   pct:21.6,  ref:'arXiv:2506.13836', ours:false, metric:'travel_time'},
+  {label:'IDQN — Ingolstadt 21TL (T-REX)',pct:17.7, ref:'arXiv:2506.13836', ours:false, metric:'travel_time'},
+  {label:'FMA2C — Ingolstadt (T-REX)',   pct:14.4,  ref:'arXiv:2506.13836', ours:false, metric:'travel_time'},
+  {label:'MAPPO+TRR (2026)',             pct:10.0,  ref:'arXiv:2603.12096', ours:false, metric:'wait_time', note:'vs RL'},
+  {label:'FMA2C — Grid 4×4 (T-REX)',    pct:-5.5,  ref:'arXiv:2506.13836', ours:false, metric:'travel_time'},
+  {label:'FMA2C — Cologne 3TL (T-REX)', pct:-15.9, ref:'arXiv:2506.13836', ours:false, metric:'travel_time'},
+  {label:'IDQN — Cologne 3TL (T-REX)',  pct:-20.2, ref:'arXiv:2506.13836', ours:false, metric:'travel_time'},
+  {label:'MPLight — Cologne (T-REX)',    pct:-45.6, ref:'arXiv:2506.13836', ours:false, metric:'travel_time'},
+  // Separator
+  {sep:true},
+  // Ours
+  {label:'Ours — Baku Hexagon (12 TLs)', pct:100.0, ref:'This thesis',       ours:true,  metric:'wait_time'},
+  {label:'Ours — Baku Main (3 TLs)',     pct:80.6,  ref:'This thesis',       ours:true,  metric:'wait_time'},
+  {label:'Ours — Baku Bottleneck (2 TLs)',pct:71.9, ref:'This thesis',       ours:true,  metric:'wait_time'},
+  {label:'Ours — Baku Pedestrian (1 TL)',pct:19.3,  ref:'This thesis',       ours:true,  metric:'wait_time'},
+];
+
+const FEATURES = [
+  {method:'IDQN (RESCO)',       alg:'Ind. DQN',      reward:'Queue (1-term)',    norm:'None',        ep:'100',   ms:false, bk:false},
+  {method:'IPPO (RESCO)',       alg:'Ind. PPO',      reward:'Queue (1-term)',    norm:'None',        ep:'1400',  ms:false, bk:false},
+  {method:'MPLight',            alg:'DQN+Pressure',  reward:'Pressure',          norm:'None',        ep:'100',   ms:false, bk:false},
+  {method:'FMA2C',              alg:'A2C+Fingerprint',reward:'Queue+delay',      norm:'None',        ep:'1400',  ms:false, bk:false},
+  {method:'MA-PPO (2025)',      alg:'PPO CTDE',      reward:'Delay-based',       norm:'Not reported',ep:'n/r',   ms:false, bk:false},
+  {method:'MAPPO+TRR (2026)',   alg:'MAPPO CTDE',    reward:'Waiting time',      norm:'Not reported',ep:'n/r',   ms:false, bk:false},
+  {method:'PPO-ATSC (Ours)',    alg:'PPO SubprocVec(4)',reward:'7-term composite',norm:'VecNormalize',ep:'400k–600k',ms:true, bk:true, ours:true},
+];
+
+const FINDINGS = [
+  {
+    icon:'🚨', title:'Cologne Corridor: RL Fails Flat',
+    text:'In T-REX (2025), ALL RL methods underperform fixed-time on the real-world Cologne Corridor: IDQN −20%, MPLight −46%, FMA2C −16%. Our PPO beats fixed-time on every scenario — suggesting RESCO-style training (100–1400 episodes) is insufficient for real networks but our 400k–600k step budget is not.',
+    cls:'pos',
+  },
+  {
+    icon:'📊', title:'Our Range Beats Reported SOTA Waiting-Time Reductions',
+    text:'Best reported SOTA wait-time improvement: Mahato 2025 at 78.25% on a 4-TL grid. Our models: bottleneck +71.9%, main +80.6%, hexagon +100%. Pedestrian is the weakest at +19.3%, consistent with the inherent trade-off between vehicle and pedestrian phases.',
+    cls:'pos',
+  },
+  {
+    icon:'📐', title:'7-Term Reward vs Single-Term: Critical Difference',
+    text:'RESCO baselines use a single queue-length reward term. Our 7-term reward (β_wt=0.55 primary, starvation β=1.0, load-balance LC β=0.60) prevents phase-lock, starvation, and gridlock — failure modes visible in FMA2C\'s negative improvements on Cologne. The starvation penalty alone was the fix for phase-lock collapse observed at 450k steps in the main scenario.',
+    cls:'info',
+  },
+  {
+    icon:'🏗️', title:'VecNormalize + Best-Checkpoint Guard — Not Used by SOTA',
+    text:'None of the surveyed papers report using observation/reward normalisation or a best-checkpoint anti-collapse guard. Our training uses VecNormalize (clip=10) and saves ppo_best.zip at peak waiting-time improvement — the hexagon best checkpoint achieves +100% vs the final model\'s +15.4%, proving the guard is critical at scale.',
+    cls:'pos',
+  },
+  {
+    icon:'⚖️', title:'Fair Comparison Is Fundamentally Difficult',
+    text:'Improvement % over fixed-time is the most comparable cross-paper metric but still confounded by: fixed-time cycle quality (RESCO uses real optimised cycles; we use SUMO defaults), scenario demand calibration, metric definition (travel time vs waiting time), and evaluation episode length. Take absolute rankings with appropriate caution.',
+    cls:'warn',
+  },
+  {
+    icon:'📈', title:'Scale: 12 TLs at +100% vs 21 TLs at +14–18%',
+    text:'T-REX\'s best large-network result: IDQN +17.7%, FMA2C +14.4% on Ingolstadt (21 TLs). Our hexagon (12 TLs) achieves +100% waiting time and +99% queue reduction. This order-of-magnitude gap likely reflects both scenario calibration and the effectiveness of our composite reward at preventing phase-lock in large networks.',
+    cls:'pos',
+  },
+];
+
+const CAVEATS = [
+  'Different scenarios: Our Baku networks are not standard benchmarks. RESCO uses real Cologne/Ingolstadt data with optimised fixed-time cycles — a harder baseline to beat than SUMO-default fixed-time.',
+  'Different metrics: T-REX and Martinez et al. report travel time (seconds); we report waiting time. These are correlated but not identical.',
+  'Training budget: RESCO evaluates after 100 (IDQN) to 1400 (FMA2C) episodes. We train for 400k–600k decision steps ≈ 1600–2400 episodes. Longer training is a genuine advantage, but also a fair reflection of our methodology.',
+  'Simulator differences: T-REX and our work use SUMO 1.18; Martinez et al. use PTV-Vissim; Robust MARL (2026) uses VISSIM. Simulator fidelity and traffic model assumptions differ.',
+  'Evaluation protocol: We use matched-snapshot evaluation (identical demand per seed for FT and RL) with 5–10 seeds. RESCO papers do not always report multi-seed evaluation or matched demand.',
+];
+
+// ── Render papers ──────────────────────────────────────────────────────────
+function renderPapers() {
+  const grid = document.getElementById('papers-grid');
+  PAPERS.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'paper-card fade-in';
+    div.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="paper-year">${p.year}</span>
+        <span class="paper-ref">${p.ref}</span>
+      </div>
+      <div class="paper-title"><a href="${p.url}" target="_blank" rel="noopener" style="color:var(--txt)">${p.title}</a></div>
+      <div class="paper-finding">${p.finding}</div>
+      <div class="paper-result">
+        ${p.tags.map(t => `<span class="pr-tag ${t.cls}">${t.label}</span>`).join('')}
+      </div>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+// ── Render bar chart ───────────────────────────────────────────────────────
+function renderBars() {
+  const container = document.getElementById('main-bar-chart');
+  const maxPct    = 110;
+
+  BAR_DATA.forEach(d => {
+    if (d.sep) {
+      const div = document.createElement('div');
+      div.className = 'bar-separator';
+      div.innerHTML = '<span style="font-size:10px;color:var(--txt-3);padding:0 4px;background:var(--bg);position:relative;top:-1px">&nbsp;↑ SOTA &nbsp; ↓ Ours &nbsp;</span>';
+      container.appendChild(div);
+      return;
+    }
+
+    const pos    = d.pct >= 0;
+    const width  = Math.abs(d.pct) / maxPct * 100;
+    const row    = document.createElement('div');
+    row.className = 'bar-row';
+
+    const labelCls = d.ours ? 'ours' : (!pos ? 'worse' : '');
+    const fillCls  = d.ours ? 'ours-fill' : (pos ? 'pos' : 'neg');
+    const valColor = d.ours ? 'var(--green)' : (pos ? 'var(--txt)' : 'var(--red)');
+    const sign     = pos ? '+' : '';
+    const noteStr  = d.note ? ` <span style="color:var(--txt-3);font-size:10px">(${d.note})</span>` : '';
+    const metricBadge = d.metric === 'travel_time'
+      ? '<span style="font-size:10px;color:var(--txt-3);margin-left:4px">†travel</span>'
+      : '';
+
+    row.innerHTML = `
+      <div class="bar-label ${labelCls}">${d.label}${metricBadge}</div>
+      <div class="bar-track">
+        <div class="bar-fill ${fillCls}" style="width:${width}%;${!pos?'float:right':''}"></div>
+      </div>
+      <div class="bar-val" style="color:${valColor}">${sign}${d.pct.toFixed(1)}%${noteStr}</div>
+      <div class="bar-ref">${d.ref}</div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+// ── Render feature table ───────────────────────────────────────────────────
+function renderFeatures() {
+  const table = document.getElementById('feat-table');
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Method</th><th>Algorithm</th><th>Reward function</th>
+        <th>Obs/reward norm</th><th>Training</th>
+        <th style="text-align:center">Multi-seed eval</th>
+        <th style="text-align:center">Anti-collapse guard</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${FEATURES.map(f => `
+        <tr class="${f.ours ? 'ours-row' : ''}">
+          <td style="font-weight:${f.ours?'700':'400'};color:${f.ours?'var(--green)':'var(--txt)'}">${f.method}</td>
+          <td style="font-family:var(--mono);font-size:11px">${f.alg}</td>
+          <td>${f.reward}</td>
+          <td style="font-family:var(--mono);font-size:11px;color:${f.norm==='None'?'var(--txt-3)':'var(--txt)'}">${f.norm}</td>
+          <td style="font-family:var(--mono);font-size:11px">${f.ep}</td>
+          <td style="text-align:center"><span class="tick ${f.ms?'yes':'no'}">${f.ms?'✓':'✗'}</span></td>
+          <td style="text-align:center"><span class="tick ${f.bk?'yes':'no'}">${f.bk?'✓':'✗'}</span></td>
+        </tr>
+      `).join('')}
+    </tbody>
+  `;
+}
+
+// ── Render findings ────────────────────────────────────────────────────────
+function renderFindings() {
+  const grid = document.getElementById('findings-grid');
+  const colors = {pos:'var(--green-dim)',info:'rgba(99,102,241,.1)',warn:'var(--orange-dim)'};
+  const borders = {pos:'rgba(16,185,129,.2)',info:'rgba(99,102,241,.2)',warn:'rgba(249,115,22,.2)'};
+  FINDINGS.forEach(f => {
+    const div = document.createElement('div');
+    div.style.cssText = `background:${colors[f.cls]||'var(--bg-elevated)'};border:1px solid ${borders[f.cls]||'var(--border)'};border-radius:var(--r-lg);padding:20px`;
+    div.innerHTML = `
+      <div style="font-size:20px;margin-bottom:10px">${f.icon}</div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:8px">${f.title}</div>
+      <div style="font-size:13px;color:var(--txt-2);line-height:1.7">${f.text}</div>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+// ── Render caveats ─────────────────────────────────────────────────────────
+function renderCaveats() {
+  const el = document.getElementById('caveats-list');
+  el.innerHTML = '<ol style="padding-left:18px;display:flex;flex-direction:column;gap:6px">' +
+    CAVEATS.map(c => `<li>${c}</li>`).join('') + '</ol>';
+}
+
+// ── Scroll fade-in ─────────────────────────────────────────────────────────
+function initFadeIn() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+}
+
+// ── Boot ───────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderPapers();
+  renderBars();
+  renderFeatures();
+  renderFindings();
+  renderCaveats();
+  initFadeIn();
+});
+</script>
+</body>
+</html>

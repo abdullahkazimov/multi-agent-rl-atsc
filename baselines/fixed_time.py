@@ -109,15 +109,40 @@ class FixedTimeRunner:
             "queue_length":  [],
             "throughput":    [],
         }
+        # per-TL buffer — populated every step (including warmup) for animation
+        self._per_tl_buffer: Dict[str, Dict[str, List]] = {
+            tl: {"stopped_ratio": [], "waiting_time": [], "queue_length": [], "phase": []}
+            for tl in self.tl_ids
+        }
 
         for t in range(max_steps):
+            arrived_step = 0
             for _ in range(self.DELTA_TIME):
                 traci.simulationStep()
+                arrived_step += int(traci.simulation.getArrivedNumber())
+
+            # Always collect per-TL (animation needs warmup steps too)
+            for tl_id in self.tl_ids:
+                ratios, waits, queues = [], [], []
+                for ln in self._tl_lanes.get(tl_id, []):
+                    if not self._is_veh_lane.get(ln, False):
+                        continue
+                    halting = traci.lane.getLastStepHaltingNumber(ln)
+                    ratios.append(min(1.0, halting / self._lane_cap[ln]))
+                    waits.append(traci.lane.getWaitingTime(ln))
+                    queues.append(float(halting))
+                self._per_tl_buffer[tl_id]["stopped_ratio"].append(
+                    round(float(np.mean(ratios)) if ratios else 0.0, 4))
+                self._per_tl_buffer[tl_id]["waiting_time"].append(
+                    round(float(np.mean(waits))  if waits  else 0.0, 3))
+                self._per_tl_buffer[tl_id]["queue_length"].append(
+                    round(float(np.mean(queues)) if queues else 0.0, 3))
+                self._per_tl_buffer[tl_id]["phase"].append(0)  # FT follows fixed SUMO programme
 
             if t < warmup_steps:
                 continue
 
-            m = self._collect_step_metrics()
+            m = self._collect_step_metrics(arrived_step)
             for k, v in m.items():
                 metrics[k].append(v)
 
@@ -140,7 +165,7 @@ class FixedTimeRunner:
 
     # ── Metrics collection ───────────────────────────────────────────────
 
-    def _collect_step_metrics(self) -> Dict[str, float]:
+    def _collect_step_metrics(self, arrivals: int) -> Dict[str, float]:
         stopped_ratios, wait_times, queue_lengths = [], [], []
 
         for tl_id in self.tl_ids:
@@ -156,7 +181,7 @@ class FixedTimeRunner:
             "stopped_ratio": float(np.mean(stopped_ratios)) if stopped_ratios else 0.0,
             "waiting_time":  float(np.mean(wait_times))     if wait_times     else 0.0,
             "queue_length":  float(np.mean(queue_lengths))  if queue_lengths  else 0.0,
-            "throughput":    float(traci.simulation.getArrivedNumber()),
+            "throughput":    float(arrivals),
         }
 
     def _build_lane_index(self):
