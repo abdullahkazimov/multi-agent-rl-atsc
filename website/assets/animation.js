@@ -125,8 +125,10 @@ function showDataMissing(sc, seed) {
     ctx.fillStyle = 'rgba(239,68,68,.8)';
     ctx.font = 'bold 13px Inter,sans-serif';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText(`Data not ready — run: python generate_anim_data.py --scenario ${sc}`,
-                 c.width / 2, c.height / 2);
+    const msg = location.protocol === 'file:'
+      ? 'Opened as file:// — serve over HTTP: cd website && python -m http.server 8000'
+      : `Data not found — run: python generate_anim_data.py --scenario ${sc}`;
+    ctx.fillText(msg, c.width / 2, c.height / 2);
   });
 }
 

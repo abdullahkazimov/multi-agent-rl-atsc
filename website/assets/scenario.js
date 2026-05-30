@@ -109,7 +109,9 @@ async function loadAndRender(seed) {
       });
     } catch(e) {
       console.error(e);
-      showError(`Data for seed ${seed} not yet available. Run generate_site_data.py first.`);
+      showError(location.protocol === 'file:'
+        ? 'Opened as a file:// URL — the browser blocks loading the data. Serve over HTTP: "cd website && python -m http.server 8000", then open http://localhost:8000.'
+        : `Data for seed ${seed} not found. From the repo root run python generate_site_data.py, then refresh.`);
       return;
     }
   }

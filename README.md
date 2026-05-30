@@ -134,6 +134,10 @@ cd website && python -m http.server 8000
 # open http://localhost:8000
 ```
 
+> **Note:** serve it over HTTP as above — opening `index.html` directly as a
+> `file://` URL will show "Could not load data", because browsers block
+> JavaScript from `fetch()`-ing local files.
+
 ## Paper
 
 The AICT 2026 manuscript lives in [`paper/`](paper/) (IEEE two-column LaTeX).

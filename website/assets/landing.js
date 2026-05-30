@@ -274,10 +274,15 @@ function fmtImp(v) {
 function showDataError() {
   const grid = document.getElementById('scenario-cards');
   if (grid) {
+    const viaFile = location.protocol === 'file:';
     grid.innerHTML = `
       <div class="loading-state" style="grid-column:1/-1;flex-direction:column;gap:8px">
-        <div style="font-size:15px;font-weight:600">Data not yet generated</div>
-        <div style="font-size:13px;color:var(--txt-3)">Run <code style="background:var(--bg-elevated);padding:2px 8px;border-radius:4px">python generate_site_data.py</code> then refresh.</div>
+        <div style="font-size:15px;font-weight:600">Could not load data/manifest.json</div>
+        <div style="font-size:13px;color:var(--txt-3);max-width:520px;text-align:center;line-height:1.6">
+          ${viaFile
+            ? `This page was opened as a <code style="background:var(--bg-elevated);padding:2px 6px;border-radius:4px">file://</code> URL, so the browser blocks loading the data. Serve it over HTTP instead: <code style="background:var(--bg-elevated);padding:2px 6px;border-radius:4px">cd website &amp;&amp; python -m http.server 8000</code>, then open <code style="background:var(--bg-elevated);padding:2px 6px;border-radius:4px">http://localhost:8000</code>.`
+            : `The data files were not found. From the repo root run <code style="background:var(--bg-elevated);padding:2px 6px;border-radius:4px">python generate_site_data.py</code>, then refresh.`}
+        </div>
       </div>
     `;
   }
